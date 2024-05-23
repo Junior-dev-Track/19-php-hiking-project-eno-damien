@@ -1,0 +1,10 @@
+{
+  "autoload": {
+      "psr-4": {
+          "Application\\": "src/"
+      }
+  },
+  "require": {
+      "ext-pdo": "*"
+  }
+}
