@@ -13,7 +13,7 @@ use Application\Controllers\{
 (new Header())->execute();
 
 $router = new AltoRouter();
-//$router->setBasePath('/19-php-hiking-project-eno-damien');
+$router->setBasePath('/19-php-hiking-project-eno-damien');
 
 $router->map('GET', '/', function () use ($env) {
     (new Homepage())->execute($env);

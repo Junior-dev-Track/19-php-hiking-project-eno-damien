@@ -1,21 +1,22 @@
 <?php
 ob_start();
+?>
 
-foreach ($hike_array as $hike) : ?>
-    <li>
-        <a href="/20-CLASSIC-MVC-ROUTEUR/productdetails/<?= htmlspecialchars($Product['productCode']); ?>">
-            <h3>Name : <?= htmlspecialchars($hike["name"]); ?></h3>
-            <p>duration :<?= htmlspecialchars($hike["duration"]); ?></p>
-        </a>
-    <?php
-endforeach;
-    ?>
-    </ol>
+<div class="grid grid-cols-4 gap-4">
+    <?php foreach ($hike_array as $hike) : ?>
+        <div class="card">
+            <img src="public/images/<?= htmlspecialchars($hike['id'] ?? 'default'); ?>.jpg" alt="<?= htmlspecialchars($hike['name']); ?>" class="w-full h-64 object-cover">
+            <div class="p-4">
+                <h3 class="font-bold text-xl"><?= htmlspecialchars($hike["name"]); ?></h3>
+                <p>Distance: <?= htmlspecialchars($hike["distance"]); ?> KM</p>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</div>
 
+<?php
+$contentBody = ob_get_clean();
+$contentHeader = "";
+$contentFooter = "";
 
-    <?php $contentBody = ob_get_clean();
-    $contentHeader = "";
-    $contentFooter = "";
-    ?>
-
-    <?php require('layout.view.php') ?>
+require('layout.view.php');
