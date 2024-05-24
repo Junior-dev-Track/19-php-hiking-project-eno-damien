@@ -1,4 +1,5 @@
 <?php
+var_dump(__DIR__);
 ob_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,8 +41,8 @@ ob_start(); ?>
                 </a>
             </div>
             <div class="space-x-4">
-                <a class="text-white text-xl hover:text-emerald-200 transition duration-200 ease-in-out nav-link" href="/">Home</a>
-                <a class="text-white text-xl hover:text-emerald-200 transition duration-200 ease-in-out nav-link" href="/login">Login</a>
+                <a class="text-white text-xl hover:text-emerald-200 transition duration-200 ease-in-out nav-link" href="/19-php-hiking-project-eno-damien">Home</a>
+                <a class="text-white text-xl hover:text-emerald-200 transition duration-200 ease-in-out nav-link" href="<?php echo __DIR__; ?>/../../login">Login</a>
                 <a class="text-white text-xl hover:text-emerald-700 transition duration-200 ease-in-out nav-link" href="/register">Register</a>
             </div>
         </div>
