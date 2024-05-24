@@ -40,9 +40,9 @@ ob_start(); ?>
                 </a>
             </div>
             <div class="space-x-4">
-                <a class="text-white text-xl hover:text-gray-700 transition duration-200 ease-in-out nav-link" href="/">Home</a>
-                <a class="text-white text-xl hover:text-gray-700 transition duration-200 ease-in-out nav-link" href="/login">Login</a>
-                <a class="text-white text-xl hover:text-gray-700 transition duration-200 ease-in-out nav-link" href="/register">Register</a>
+                <a class="text-white text-xl hover:text-emerald-200 transition duration-200 ease-in-out nav-link" href="/">Home</a>
+                <a class="text-white text-xl hover:text-emerald-200 transition duration-200 ease-in-out nav-link" href="/login">Login</a>
+                <a class="text-white text-xl hover:text-emerald-700 transition duration-200 ease-in-out nav-link" href="/register">Register</a>
             </div>
         </div>
     </nav>
