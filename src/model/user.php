@@ -53,17 +53,34 @@ class User
     return $result;
     }
 
-    public function addUser($nickname, $email, $password_crypt)
+    public function firstUser()
+    {
+        $statement = $this->connection->getConnection()->prepare("SELECT COUNT(*) from users");
+        $statement->execute();
+        $result = $statement->fetchColumn();
+        return $result;
+    }
+
+    public function addUser($nickname, $email, $password_crypt, $user_admin)
     {
         $statement = $this->connection->getConnection()->prepare(
-            "INSERT INTO users (nickname, email, password) VALUES (:nickname, :email , :password_crypt)"
+            "INSERT INTO users (nickname, email, password, user_admin) VALUES (:nickname, :email , :password_crypt, :user_admin)"
         );
         $statement->bindParam(':nickname', $nickname, PDO::PARAM_STR);
         $statement->bindParam(':email', $email, PDO::PARAM_STR);
         $statement->bindParam(':password_crypt', $password_crypt, PDO::PARAM_STR);
+        $statement->bindParam(':user_admin', $user_admin, PDO::PARAM_INT);
+        $statement->execute();
+        $user_count = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $user_count;
+    }
+
+    public function getUserInfos($userid)
+    {
+        $statement = $this->connection->getConnection()->prepare("SELECT id, firstname, lastname, nickname, email, user_admin from users WHERE id = :userid");
+        $statement->bindParam(':userid', $userid, PDO::PARAM_INT);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
-    }
+        return $result;}
 }
 

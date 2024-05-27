@@ -71,6 +71,10 @@ $router->map('POST', '/hikes/editcom/[i:hikeid]/[i:commentid]', function ($hikei
     (new HikesComments())->EditComment($hikeid, $commentid, $_POST, 'editCommentHickeV', $env);
 });
 
+$router->map('GET', '/user/showprofil/[i:userid]', function ($userid) use ($env) {
+    (new User())->ShowUser($userid, $env);
+});
+
 //Route matching
 $match = $router->match();
 

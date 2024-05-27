@@ -12,11 +12,6 @@ ob_start(); ?>
             <a href="/">
                 <img class="h-10 w-10 rounded-full" src="<?php echo BASE_PATH; ?>/public/images/logo.jpg" alt="Your Logo">
             </a>
-            <?php if ($user_identifiant) { ?>
-                <div style="color: #F9FAFB; position: relative; left: 50px;">
-                    <?php echo " WELCOME " . strtoupper($user_identifiant); ?>
-                </div>
-            <?php } ?>
         </div>
         <div class="space-x-4">
             <a class="text-white text-lg hover:text-green-300 transition duration-200 ease-in-out nav-link" href="<?php echo BASE_PATH; ?>/">HOME</a>
@@ -32,7 +27,12 @@ ob_start(); ?>
                     </div>
                     <div x-show="open" @click.away="open = false" class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5" style="z-index: 1000;">
                         <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                            <a href="<?php echo BASE_PATH; ?>/edit" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Edit</a>
+                            <?php if ($user_identifiant) { ?>
+                                <div class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <?php echo " Connected as : " . $user_identifiant; ?>
+                                </div>
+                            <?php } ?>
+                            <a href="<?php echo BASE_PATH; ?>/user/showprofil/<?= htmlspecialchars($user_id) ?>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Edit Profil</a>
                             <a href="<?php echo BASE_PATH; ?>/addhike" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Add Hike</a>
                             <a href="<?php echo BASE_PATH; ?>/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Logout</a>
                         </div>

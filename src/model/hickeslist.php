@@ -49,7 +49,7 @@ class Hickeslist
         );
         $statement->bindParam(':id', $hikesId, PDO::PARAM_INT);
         $statement->execute();
-        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 

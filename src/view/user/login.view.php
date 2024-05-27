@@ -12,7 +12,10 @@ ob_start(); ?>
                 <p class="text-center text-red-500"><?php echo htmlspecialchars($error) ?></p>
                 <p class="text-center">Redirection in <span id="countdownLogin">3</span> seconds</p>
             <?php } else { ?>
-                <p class="text-center text-gray-50"><?php echo htmlspecialchars($success) ?></p>
+                <p class="text-center text-gray-50">
+                    <?php echo htmlspecialchars($success_login); ?><br><br>
+                    <span class="welcome-text"><?php echo htmlspecialchars($success_welcome); ?></span>
+                </p>
                 <p class="text-center">Redirection in <span id="countdownIndex">3</span> seconds</p>
             <?php } ?>
             <script>

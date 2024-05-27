@@ -20,7 +20,7 @@ class HikesDetails
         //we set the databaseConnection for the __construct method
         $HickesDetails = new Hickeslist($databaseConnection);       
     
-        $hikesDetails_array = $HickesDetails->getHikesDetails($hikesId);
+        $hike = $HickesDetails->getHikesDetails($hikesId);
 
         $hikesComments_array = $HickesDetails->getHikesComments($hikesId);
 

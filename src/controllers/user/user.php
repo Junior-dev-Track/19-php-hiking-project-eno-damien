@@ -33,7 +33,11 @@ class User
                         'sess_id' => $result['id'],
                         'sess_user' => $result['nickname']
                     ];
-                    $success = "Login Successfull. Welcome " . $result['nickname'] . "";
+                
+                    $success_login = "Login Successfull.";
+                    $success_welcome = "Welcome " . htmlspecialchars($result['nickname']);
+
+
                 } else {
                     $error = "Invalid email or password. Retry.";
                 }
@@ -69,7 +73,12 @@ class User
                     if ($email_verif > 0) {
                         $error = "Email already exists. Please, choose another mail or retrieve your informations!"; 
                     } else {
-                        $newData->addUser($nickname, $email, $password_crypt);
+
+                        $userCount = $newData->firstUser();
+                        $user_admin = ($userCount == 0) ? 1 : 0;
+
+
+                        $newData->addUser($nickname, $email, $password_crypt, $user_admin);
                         //Autologin after subscription
                         $id = $databaseConnection->getConnection()->lastInsertId();
                         $_SESSION['user'] = [
@@ -83,5 +92,14 @@ class User
             $error = "No data received";
         }
         require(__DIR__ . '/../../view/user/register.view.php');
+    }
+
+    public function ShowUser($userid, $env) {
+        $databaseConnection = new DatabaseConnection($env);
+        $newData = new UserModel($databaseConnection);
+
+        $user_infos = $newData->getUserInfos($userid);
+    
+        require(__DIR__ . '/../../view/user/showprofil.view.php');
     }
 }
