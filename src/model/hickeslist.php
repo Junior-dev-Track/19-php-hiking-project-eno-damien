@@ -52,4 +52,19 @@ class Hickeslist
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    public function getHikesComments($hickesid)
+    {
+        $commentdb = $this->connection->getConnection()->prepare(
+            "SELECT hc.id, hc.hikes_comments, hc.id_user, hc.posted_at, u.nickname
+            FROM hikescomments hc
+            INNER JOIN users u
+            ON hc.id_user = u.id
+            WHERE hc.id_hikes = :id_hikes
+            ORDER BY hc.id");
+        $commentdb->bindParam(":id_hikes", $hickesid, PDO::PARAM_INT);
+        $commentdb->execute();
+        $result = $commentdb->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }
