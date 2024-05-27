@@ -1,12 +1,9 @@
-<?php 
+<?php
 ob_start(); ?>
-<header> 
- <p>Footer</p>
-</header> 
+<header class="bg-green-500 text-white text-center py-4">
+  <p>&copy; Eno-Damien Hiking project</p>
+</header>
 
-<?php 
+<?php
 $contentHeader = "";
 $contentBody = "";
-$contentFooter = ob_get_clean();
-require(__DIR__ . '/layout.view.php');
-?>
