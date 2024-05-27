@@ -8,7 +8,6 @@ $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : 
     </div>
 
     <div class="bg-gray-900 opacity-100">
-        <?php foreach ($hikesDetails_array as $hike) : ?>
             <div class="max-w-screen-xl mx-auto pt-5 sm:pt-10 md:pt-16 relative">
                 <!-- Display the main image -->
                 <div class="bg-cover bg-center text-center overflow-hidden" style="min-height: 500px; background-image: url('<?php echo BASE_PATH; ?>/public/images/<?php echo htmlspecialchars($hike["id"] ?? 'default'); ?>.jpg')" title="<?= htmlspecialchars($hike['name']); ?>">
@@ -36,7 +35,6 @@ $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : 
                             </p>
                         </div>
                     </div>
-                <?php endforeach; ?>
                 </div>
             </div>
             <!-- Comment form -->
