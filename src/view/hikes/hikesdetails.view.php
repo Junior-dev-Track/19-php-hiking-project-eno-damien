@@ -4,7 +4,7 @@ $user_identifiant = isset($_SESSION['user']['sess_user']) ? $_SESSION['user']['s
 $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : null;
 ?>
 <div class="min-h-screen bg-gray-900 flex flex-col  relative px-4">
-    <div class="absolute top-0 left-0 w-full h-full bg-cover bg-center opacity-80" style="background-image: url('https://images.unsplash.com/photo-1604093882750-3ed498f3178b');">
+    <div class="absolute top-0 left-0 w-full h-full bg-cover bg-center" style="background-image: url('<?php echo BASE_PATH; ?>/public/images/background.jpeg');">
     </div>
 
     <div class="bg-gray-900 opacity-100">
