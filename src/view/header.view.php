@@ -17,13 +17,13 @@ ob_start(); ?>
             <?php } ?>
         </div>
         <div class="space-x-4">
-            <a class="text-white text-lg hover:text-green-300 transition duration-200 ease-in-out nav-link" href="<?php echo BASE_PATH; ?>/">Home</a>
+            <a class="text-white text-lg hover:text-green-300 transition duration-200 ease-in-out nav-link" href="<?php echo BASE_PATH; ?>/">HOME</a>
             <?php if (empty($user_identifiant)) { ?>
-                <a class="text-white text-lg hover:text-green-300 transition duration-200 ease-in-out nav-link" href="<?php echo BASE_PATH; ?>/login">Login</a>
-                <a class="text-white text-lg hover:text-green-300 transition duration-200 ease-in-out nav-link" href="<?php echo BASE_PATH; ?>/register">Register</a>
+                <a class="text-white text-lg hover:text-green-300 transition duration-200 ease-in-out nav-link" href="<?php echo BASE_PATH; ?>/login">LOGIN</a>
+                <a class="text-white text-lg hover:text-green-300 transition duration-200 ease-in-out nav-link" href="<?php echo BASE_PATH; ?>/register">REGISTER</a>
             <?php } else { ?>
-                <a class="text-white text-lg hover:text-green-300 transition duration-200 ease-in-out nav-link" href="<?php echo BASE_PATH; ?>/settings">Settings</a>
-                <a class="text-white text-lg hover:text-green-300 transition duration-200 ease-in-out nav-link" href="<?php echo BASE_PATH; ?>/logout">Logout</a>
+                <a class="text-white text-lg hover:text-green-300 transition duration-200 ease-in-out nav-link" href="<?php echo BASE_PATH; ?>/settings">SETTINGS</a>
+                <a class="text-white text-lg hover:text-green-300 transition duration-200 ease-in-out nav-link" href="<?php echo BASE_PATH; ?>/logout">LOGOUT</a>
             <?php } ?>
         </div>
     </div>
