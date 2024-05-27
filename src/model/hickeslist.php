@@ -35,7 +35,7 @@ class Hickeslist
     public function getListOfHickes()
     {
         $statement = $this->connection->getConnection()->prepare(
-            "SELECT id, name, distance FROM Hikes"
+            "SELECT id, name, distance, duration FROM Hikes"
         );
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
