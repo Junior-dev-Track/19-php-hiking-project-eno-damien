@@ -30,10 +30,10 @@ $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : 
             if (($user_id) == $hcomment['id_user']) { ?>
                 <div>
                     <!-- Keep the code and id to be able to return to the page product after action -->
-                    <a href='<?php echo BASE_PATH; ?>/hikes/editcom/<?= $hike['id']; ?>/<?= $hcomment['id'] ?>'><img src='<?php echo BASE_PATH; ?>/public/images/edit-icon.png' alt='editicon' /></a>
+                    <a href='<?php echo htmlspecialchars(BASE_PATH); ?>/hikes/editcom/<?= $hike['id']; ?>/<?= $hcomment['id'] ?>'><img src='<?php echo htmlspecialchars(BASE_PATH); ?>/public/images/edit-icon.png' alt='editicon' /></a>
                 </div>
                 <div>
-                    <a href='<?php echo BASE_PATH; ?>/hikes/deletecom/<?= $hike['id']; ?>/<?= $hcomment['id'] ?>'><img src='<?php echo BASE_PATH; ?>/public/images/delete-icon.png' alt='deleteicon' /></a>
+                    <a href='<?php echo htmlspecialchars(BASE_PATH); ?>/hikes/deletecom/<?= $hike['id']; ?>/<?= $hcomment['id'] ?>'><img src='<?php echo htmlspecialchars(BASE_PATH); ?>/public/images/delete-icon.png' alt='deleteicon' /></a>
                 </div>
             <?php } ?>
         </div>
