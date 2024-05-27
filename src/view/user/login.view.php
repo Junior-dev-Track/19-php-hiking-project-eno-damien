@@ -5,7 +5,7 @@ ob_start(); ?>
     <img src="public/images/forest.webp" alt="Background Image" class="absolute inset-0 h-full w-full object-cover z-0">
     <div class="relative max-w-sm w-full space-y-8 z-10 p-10 bg-white bg-opacity-25 rounded-md border border-white" style="backdrop-filter: blur(10px);">
         <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-50">
-            Login in
+            LOGIN IN
         </h2>
         <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($error) { ?>
