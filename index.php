@@ -16,7 +16,8 @@ use Application\Controllers\{
     Footer,
     User\User,
     User\Logout,
-    Hikes\HikesDetails
+    Hikes\HikesDetails,
+    Hikes\HikesComments
 };
 
 (new Header())->execute();
@@ -54,7 +55,21 @@ $router->map('GET', '/hikes/[i:hikesId]', function ($hikesId) use ($env) {
     (new HikesDetails())->ShowHikes($hikesId, $env);
 });
 
+$router->map('POST', '/hikes/addcomment/[i:hikeid]/[i:userid]', function ($hikeid, $userid) use ($env) {
+    (new HikesComments())->AddComment($_POST, $hikeid, $userid, $env);
+});
 
+$router->map('GET', '/hikes/deletecom/[i:hikeid]/[i:commentid]', function ($hikeid, $commentid) use ($env) {
+    (new HikesComments())->DeleteComment($hikeid, $commentid, $env);
+});
+
+$router->map('GET', '/hikes/editcom/[i:hikeid]/[i:commentid]', function ($hikeid, $commentid) use ($env) {
+    (new HikesComments())->EditComment($hikeid, $commentid, [], 'editCommentHicke', $env);
+});
+
+$router->map('POST', '/hikes/editcom/[i:hikeid]/[i:commentid]', function ($hikeid, $commentid) use ($env) {
+    (new HikesComments())->EditComment($hikeid, $commentid, $_POST, 'editCommentHickeV', $env);
+});
 
 //Route matching
 $match = $router->match();
