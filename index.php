@@ -2,6 +2,9 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+//path to the project's root folder (for all the links)
+define('BASE_PATH', '/19-php-hiking-project-eno-damien');
+
 require_once __DIR__ . '/vendor/autoload.php';
 
 $envFilePath = '.env';
@@ -11,7 +14,9 @@ use Application\Controllers\{
     Header,
     Homepage,
     Footer,
-    User\User
+    User\User,
+    User\Logout,
+    Hikes\HikesDetails
 };
 
 (new Header())->execute();
@@ -24,8 +29,32 @@ $router->map('GET', '/', function () use ($env) {
 });
 
 $router->map('GET', '/login', function () {
-    (new User())->login();
+    (new User())->login('');
 });
+
+//check if methd POST
+$router->map('POST', '/login/verification', function () use ($env) {
+    (new User())->login($env);
+});
+
+//check if methd POST
+$router->map('POST', '/sub/verification', function () use ($env) {
+    (new User())->register($env);
+});
+
+$router->map('GET', '/register', function () {
+    (new User())->register('');
+});
+
+$router->map('GET', '/logout', function () {
+    (new Logout())->execute();
+});
+
+$router->map('GET', '/hikes/[i:hikesId]', function ($hikesId) use ($env) {
+    (new HikesDetails())->ShowHikes($hikesId, $env);
+});
+
+
 
 //Route matching
 $match = $router->match();

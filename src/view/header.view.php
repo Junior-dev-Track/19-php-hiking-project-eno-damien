@@ -1,55 +1,32 @@
 <?php
-var_dump(__DIR__);
+//Display the session info after the registration
+$user_identifiant = isset($_SESSION['user']['sess_user']) ? $_SESSION['user']['sess_user'] : null;
+$user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : null;
 ob_start(); ?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        .nav-link {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: white;
-            transition: width .3s;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-    </style>
-    <title>Hikes</title>
-</head>
-
-<body>
-    <nav class="bg-green-500 p-6">
-        <div class="container mx-auto flex items-center justify-between">
-            <div class="flex items-center space-x-10">
-                <a href="/">
-                    <img class="h-20 w-20 rounded-full" src="/public/images/logo.jpg" alt="Your Logo">
-                </a>
-            </div>
-            <div class="space-x-4">
-                <a class="text-white text-xl hover:text-emerald-200 transition duration-200 ease-in-out nav-link" href="/19-php-hiking-project-eno-damien">Home</a>
-                <a class="text-white text-xl hover:text-emerald-200 transition duration-200 ease-in-out nav-link" href="<?php echo __DIR__; ?>/../../login">Login</a>
-                <a class="text-white text-xl hover:text-emerald-700 transition duration-200 ease-in-out nav-link" href="/register">Register</a>
-            </div>
+<nav class="bg-green-500 p-6">
+    <div class="container mx-auto flex items-center justify-between">
+        <div class="flex items-center space-x-10">
+            <a href="/">
+                <img class="h-20 w-20 rounded-full" src="<?php echo BASE_PATH; ?>/public/images/logo.jpg" alt="Your Logo">
+            </a>
+            <?php if ($user_identifiant) {
+                    echo "Welcome " . $user_identifiant . "";
+                    
+                } ?>
         </div>
-    </nav>
-</body>
-
-</html>
+        <div class="space-x-4">
+            <a class="text-white text-xl hover:text-emerald-200 transition duration-200 ease-in-out nav-link" href="<?php echo BASE_PATH; ?>/">Home</a>
+            <?php if (empty($user_identifiant)) { ?>
+                <a class="text-white text-xl hover:text-emerald-200 transition duration-200 ease-in-out nav-link" href="<?php echo BASE_PATH; ?>/login">Login</a>
+                <a class="text-white text-xl hover:text-emerald-700 transition duration-200 ease-in-out nav-link" href="<?php echo BASE_PATH; ?>/register">Register</a>
+            <?php }  else { ?>
+                <a class="text-white text-xl hover:text-emerald-700 transition duration-200 ease-in-out nav-link" href="<?php echo BASE_PATH; ?>/settings">Settings</a>
+                <a class="text-white text-xl hover:text-emerald-700 transition duration-200 ease-in-out nav-link" href="<?php echo BASE_PATH; ?>/logout">Logout</a>
+                <?php } ?>
+        </div>
+    </div>
+</nav>
 
 <?php
 $contentHeader = ob_get_clean();
