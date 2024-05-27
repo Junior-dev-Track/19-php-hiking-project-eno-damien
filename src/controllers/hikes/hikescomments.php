@@ -7,6 +7,8 @@ require_once('src/model/hickescomments.php');
 use Application\Lib\Database\DatabaseConnection;
 use Application\Model\HikesComments as HikesCommentsModel;
 
+
+
 class HikesComments
 {
 
@@ -37,6 +39,15 @@ class HikesComments
         $databaseConnection = new DatabaseConnection($env);
         $newData = new HikesCommentsModel($databaseConnection);
 
+        //Check if comment exists and if the user is the author of the comment, if not, redirect to Page not found
+        $comment = $newData->getCommentHicke($commentid);
+        
+        $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : null;
+        if (!$comment || $comment['id_user'] != $user_id) {
+            header('Location: ' . BASE_PATH . '/hikes/' . $hikeid);
+            exit();
+        }
+
         $newData->delCommentHicke($commentid);
         header('Location: ' . BASE_PATH . '/hikes/' . $hikeid);
     }
@@ -58,11 +69,20 @@ class HikesComments
             $commenthicke = htmlspecialchars($input['hikesComment']);
 
             $newData->editCommentHicke($commentid, $commenthicke);
+
+            //Check if comment exists and if the user is the author of the comment, if not, redirect to Page not found
+            $comment = $newData->getCommentHicke($commentid);
+            if (!$comment || $comment['userid'] != $userid) {
+                header('Location: ' . BASE_PATH . '/hikes/' . $hikeid);
+                exit();
+            }
+
             $success_com = 'Comment edited successfully';
             header('Location: ' . BASE_PATH . '/hikes/' . $hikeid);
-            //header('Location: index.php?action=productdetails&code=' . $code . '&success_com=Comment edited successfully');
+           
         } else {
-            //header('Location: index.php?action=productdetails&code=' . $code . '&error_com=Data form are incorrect. Please retry.');
+            $error_com = 'Error. data form incorrect, please retry.';
+            header('Location: ' . BASE_PATH . '/hikes/' . $hikeid);
         }
     }
 }
