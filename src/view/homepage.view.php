@@ -14,7 +14,10 @@ ob_start();
                 <a href="<?php echo BASE_PATH; ?>/hikes/<?= htmlspecialchars($hike["id"]); ?>">
                     <h3 class="font-bold text-xl pb-1"><?= htmlspecialchars($hike["name"]); ?></h3>
                 </a>
-                <p class="inline-flex bg-green-500 text-white px-2 py-0.5 rounded"><?= htmlspecialchars($hike["distance"]); ?>KM - <?= substr(htmlspecialchars($hike["duration"]), 0, -3); ?> Hours</p>
+                <div class="flex justify-between">
+                    <p class="bg-green-500 text-white px-2 py-0.5 rounded"><?= htmlspecialchars($hike["distance"]); ?>KM</p>
+                    <p class="bg-green-500 text-white px-2 py-0.5 rounded"><?= substr(htmlspecialchars($hike["duration"]), 0, -3); ?> H</p>
+                </div>
             </div>
         </div>
     <?php endforeach; ?>
