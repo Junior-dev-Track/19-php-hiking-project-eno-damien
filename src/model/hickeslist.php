@@ -10,7 +10,7 @@ use PDO;
 
 class Hickeslist
 {
-    private int $ID;
+    private int $id;
     private string $name;
     private float $distance;
     private string $duration;
@@ -31,15 +31,25 @@ class Hickeslist
     {
         return $this->connection->getConnection();
     }
-    
+
     public function getListOfHickes()
     {
         $statement = $this->connection->getConnection()->prepare(
-            "SELECT * FROM Hikes"
+            "SELECT id, name, distance FROM Hikes"
         );
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
+    public function getHikesDetails($hikesId)
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            "SELECT id, name, distance, duration, elevation_gain, description, created_by, created_at, updated_at FROM Hikes WHERE id = :id"
+        );
+        $statement->bindParam(':id', $hikesId, PDO::PARAM_INT);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }
