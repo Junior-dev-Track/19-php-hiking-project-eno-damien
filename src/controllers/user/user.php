@@ -94,7 +94,7 @@ class User
         require(__DIR__ . '/../../view/user/register.view.php');
     }
 
-    public function ShowUser($userid, $env) {
+    public function ShowProfil($userid, $env) {
         $databaseConnection = new DatabaseConnection($env);
         $newData = new UserModel($databaseConnection);
 
@@ -102,4 +102,6 @@ class User
     
         require(__DIR__ . '/../../view/user/showprofil.view.php');
     }
+
+    public function EditProfil
 }
