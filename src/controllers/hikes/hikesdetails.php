@@ -18,12 +18,12 @@ class HikesDetails
 
         $databaseConnection = new DatabaseConnection($env);
         //we set the databaseConnection for the __construct method
-        $HickesDetails = new Hickeslist($databaseConnection);       
-    
+        $HickesDetails = new Hickeslist($databaseConnection);
+
         $hike = $HickesDetails->getHikesDetails($hikesId);
 
         $hikesComments_array = $HickesDetails->getHikesComments($hikesId);
-
+        
         //$productComments = $HickesDetails->getProductComments($codeProduct);
         require(__DIR__ . '/../../view/hikes/hikesdetails.view.php');
     }

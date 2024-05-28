@@ -1,6 +1,7 @@
 <?php
 $user_identifiant = isset($_SESSION['user']['sess_user']) ? $_SESSION['user']['sess_user'] : null;
 $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : null;
+$user_admin = isset($_SESSION['user']['sess_admin']) ? $_SESSION['user']['sess_admin'] : null;
 ob_start(); ?>
 
 <div class="relative min-h-screen flex items-center justify-center bg-gray-50 py-10 px-6 sm:px-6 lg:px-8">

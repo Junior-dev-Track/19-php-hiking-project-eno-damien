@@ -2,6 +2,7 @@
 //Display the session info after the registration
 $user_identifiant = isset($_SESSION['user']['sess_user']) ? $_SESSION['user']['sess_user'] : null;
 $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : null;
+$user_admin = isset($_SESSION['user']['sess_admin']) ? $_SESSION['user']['sess_admin'] : null;
 ob_start(); ?>
 
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>

@@ -31,9 +31,10 @@ class User
                     // store data of user in $_SESSION
                     $_SESSION['user'] = [
                         'sess_id' => $result['id'],
-                        'sess_user' => $result['nickname']
+                        'sess_user' => $result['nickname'],
+                        'sess_admin' => $result['user_admin']
                     ];
-                
+                    
                     $success_login = "Login Successfull.";
                     $success_welcome = "Welcome " . htmlspecialchars($result['nickname']);
 
@@ -77,13 +78,13 @@ class User
                         $userCount = $newData->firstUser();
                         $user_admin = ($userCount == 0) ? 1 : 0;
 
-
                         $newData->addUser($nickname, $email, $password_crypt, $user_admin);
                         //Autologin after subscription
                         $id = $databaseConnection->getConnection()->lastInsertId();
                         $_SESSION['user'] = [
                             'sess_id' => $id,
-                            'sess_user' => $nickname
+                            'sess_user' => $nickname,
+                            'sess_admin' => $user_admin
                         ];
                     }
                 }
@@ -103,5 +104,10 @@ class User
         require(__DIR__ . '/../../view/user/showprofil.view.php');
     }
 
-    public function EditProfil
+    public function EditProfil($action) {
+        if($action="editProfil") {
+            
+        }
+        require(__DIR__ . '/../../view/user/showprofil.view.php');
+    }
 }

@@ -104,6 +104,10 @@ $router->map('GET', '/user/showprofil/[i:userid]', function ($userid) use ($env)
     (new User())->ShowProfil($userid, $env);
 });
 
+$router->map('GET', '/user/editprofil/[i:userid]', function ($userid) use ($env) {
+    (new User())->ShowProfil($userid, $env, 'editProfil');
+});
+
 //Route matching
 $match = $router->match();
 

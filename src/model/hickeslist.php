@@ -56,7 +56,7 @@ class Hickeslist
     public function getHikesComments($hickesid)
     {
         $commentdb = $this->connection->getConnection()->prepare(
-            "SELECT hc.id, hc.hikes_comments, hc.id_user, hc.posted_at, u.nickname
+            "SELECT hc.id, hc.hikes_comments, hc.id_user, hc.posted_at, u.nickname, u.user_admin
             FROM hikescomments hc
             INNER JOIN users u
             ON hc.id_user = u.id

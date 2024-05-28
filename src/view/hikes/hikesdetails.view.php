@@ -2,6 +2,7 @@
 ob_start();
 $user_identifiant = isset($_SESSION['user']['sess_user']) ? $_SESSION['user']['sess_user'] : null;
 $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : null;
+$user_admin = isset($_SESSION['user']['sess_admin']) ? $_SESSION['user']['sess_admin'] : null;
 ?>
 <div class="min-h-screen bg-gray-900 flex flex-col  relative px-4">
     <div class="absolute top-0 left-0 w-full h-full bg-cover bg-center" style="background-image: url('<?php echo BASE_PATH; ?>/public/images/background.jpeg');">
@@ -50,7 +51,8 @@ $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : 
                                     <h2 class="font-bold text-lg mb-2">Comment (n°<?= $commentHike_compteur ?>):</h2>
                                     <p class="text-gray-700"><?= $hcomment['hikes_comments'] ?></p>
                                     <?php // The user can delete his own comments
-                                    if (($user_id) == $hcomment['id_user']) { ?>
+                                    //If the user own the comment or if he is an admin, he can edit
+                                    if (($user_id) == $hcomment['id_user'] || $user_admin == "1") { ?>
                                         <div class="mt-2">
                                             <!-- Keep the code and id to be able to return to the page product after action -->
                                             <a href='<?php echo htmlspecialchars(BASE_PATH); ?>/hikes/editcom/<?= $hike['id']; ?>/<?= $hcomment['id'] ?>'><img src='<?php echo htmlspecialchars(BASE_PATH); ?>/public/images/edit-icon.png' alt='editicon' /></a>
