@@ -71,8 +71,7 @@ class User
         $statement->bindParam(':password_crypt', $password_crypt, PDO::PARAM_STR);
         $statement->bindParam(':user_admin', $user_admin, PDO::PARAM_INT);
         $statement->execute();
-        $user_count = $statement->fetchAll(PDO::FETCH_ASSOC);
-        return $user_count;
+        return $statement;
     }
 
     public function getUserInfos($userid)
@@ -81,6 +80,29 @@ class User
         $statement->bindParam(':userid', $userid, PDO::PARAM_INT);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-        return $result;}
+        return $result;
+    }
+
+    public function SaveUserInfos($userid, $firstname, $lastname, $nickname, $email)
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            "UPDATE users SET firstname = :firstname, lastname = :lastname, nickname = :nickname, email = :email WHERE id = :userid"
+        );  
+        $statement->bindParam(':userid', $userid, PDO::PARAM_INT);
+        $statement->bindParam(':firstname', $firstname, PDO::PARAM_STR);
+        $statement->bindParam(':lastname', $lastname, PDO::PARAM_STR);
+        $statement->bindParam(':nickname', $nickname, PDO::PARAM_STR);
+        $statement->bindParam(':email', $email, PDO::PARAM_STR);
+        $result = $statement->execute();
+        return $result;
+    }
+
+    public function DeleteUser($userid)
+    {
+        $statement = $this->connection->getConnection()->prepare("DELETE from users WHERE id = :userid");
+        $statement->bindParam(':userid', $userid, PDO::PARAM_INT);
+        $result = $statement->execute();
+        return $result;
+    }   
 }
 

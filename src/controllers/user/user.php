@@ -84,6 +84,7 @@ class User
                             'sess_user' => $nickname,
                             'sess_admin' => $user_admin
                         ];
+                        var_dump($_SESSION['user']);
                     }
                 }
             }
@@ -93,7 +94,7 @@ class User
         require(__DIR__ . '/../../view/user/register.view.php');
     }
 
-    public function ShowProfil($userid, $env)
+    public function ShowProfil($userid, $env, $action)
     {
         $databaseConnection = new DatabaseConnection($env);
         $newData = new UserModel($databaseConnection);
@@ -101,5 +102,36 @@ class User
         $user_infos = $newData->getUserInfos($userid);
 
         require(__DIR__ . '/../../view/user/showprofil.view.php');
+    }
+
+    public function SaveProfil($userid, $input, $env, $action)
+    {
+        $firstname = htmlspecialchars($input['firstname']);
+        $lastname = htmlspecialchars($input['lastname']);
+        $nickname = htmlspecialchars($input['nickname']);
+        $email = filter_var($input['email'], FILTER_SANITIZE_EMAIL);
+
+        $databaseConnection = new DatabaseConnection($env);
+        $newData = new UserModel($databaseConnection);
+
+        $newData->SaveUserInfos($userid, $firstname, $lastname, $nickname, $email);
+
+        if ($action == 'saveprofil') {
+            $user_infos = $newData->getUserInfos($userid);
+        }
+
+        require(__DIR__ . '/../../view/user/showprofil.view.php');
+    }
+
+    public function DeleteProfil($userid, $env)
+    {
+        $databaseConnection = new DatabaseConnection($env);
+        $newData = new UserModel($databaseConnection);
+
+        $newData->DeleteUser($userid);
+
+        session_start();
+        session_destroy();
+        header('Location: ' . BASE_PATH);
     }
 }
