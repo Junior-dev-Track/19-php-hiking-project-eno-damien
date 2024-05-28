@@ -101,13 +101,20 @@ $router->map('POST', '/hikes/editcom/[i:hikeid]/[i:commentid]', function ($hikei
 });
 
 $router->map('GET', '/user/showprofil/[i:userid]', function ($userid) use ($env) {
-    (new User())->ShowProfil($userid, $env);
+    (new User())->ShowProfil($userid, $env, '');
 });
 
-$router->map('GET', '/user/editprofil/[i:userid]', function ($userid) use ($env) {
-    (new User())->ShowProfil($userid, $env, 'editProfil');
+$router->map('POST', '/user/showprofil/[i:userid]', function ($userid) use ($env) {
+    (new User())->ShowProfil($userid, $env, 'editprofil');
 });
 
+$router->map('POST', '/user/saveprofil/[i:userid]', function ($userid) use ($env) {
+    (new User())->SaveProfil($userid, $_POST, $env, 'saveprofil');
+});
+
+$router->map('POST', '/user/deleteprofil/[i:userid]', function ($userid) use ($env) {
+    (new User())->DeleteProfil($userid, $env);
+});
 //Route matching
 $match = $router->match();
 
