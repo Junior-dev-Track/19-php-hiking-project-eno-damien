@@ -1,4 +1,5 @@
 <?php
+
 namespace Application\Controllers;
 // Set session cookie attributes for security
 session_set_cookie_params([
@@ -15,7 +16,7 @@ session_start();
 $user_identifiant = isset($_SESSION['user']['sess_user']) ? $_SESSION['user']['sess_user'] : null;
 $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : null;
 
-class Header 
+class Header
 {
     public function execute()
     {

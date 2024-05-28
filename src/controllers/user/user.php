@@ -33,11 +33,9 @@ class User
                         'sess_id' => $result['id'],
                         'sess_user' => $result['nickname']
                     ];
-                
+
                     $success_login = "Login Successfull.";
                     $success_welcome = "Welcome " . htmlspecialchars($result['nickname']);
-
-
                 } else {
                     $error = "Invalid email or password. Retry.";
                 }
@@ -94,14 +92,13 @@ class User
         require(__DIR__ . '/../../view/user/register.view.php');
     }
 
-    public function ShowProfil($userid, $env) {
+    public function ShowProfil($userid, $env)
+    {
         $databaseConnection = new DatabaseConnection($env);
         $newData = new UserModel($databaseConnection);
 
         $user_infos = $newData->getUserInfos($userid);
-    
+
         require(__DIR__ . '/../../view/user/showprofil.view.php');
     }
-
-    public function EditProfil
 }
