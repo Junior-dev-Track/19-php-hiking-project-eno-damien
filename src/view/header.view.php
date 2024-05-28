@@ -5,27 +5,30 @@ $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : 
 $user_admin = isset($_SESSION['user']['sess_admin']) ? $_SESSION['user']['sess_admin'] : null;
 ob_start(); ?>
 
+<head>
+    <!-- Other head elements -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+
+
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
-<nav class="bg-green-500 p-6">
-    <div class="container mx-auto flex items-center justify-between">
-        <div class="flex items-center space-x-10">
-            <a href="/">
-                <img class="h-10 w-10 rounded-full" src="<?php echo BASE_PATH; ?>/public/images/logo.jpg" alt="Your Logo">
-            </a>
-        </div>
-        <div class="space-x-4">
-            <a class="text-white text-lg hover:text-green-300 transition duration-200 ease-in-out nav-link" href="<?php echo BASE_PATH; ?>/">HOME</a>
+<nav class="bg-green-300 border-gray-200 rounded sticky top-0 z-50">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <a href="<?php echo BASE_PATH; ?>/" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <img class="h-8 rounded-full" src="<?php echo BASE_PATH; ?>/public/images/logo.jpg" alt="Your Logo">
+        </a>
+        <div class="flex items-center md:order-2 space-x-3">
             <?php if (empty($user_identifiant)) { ?>
-                <a class="text-white text-lg hover:text-green-300 transition duration-200 ease-in-out nav-link" href="<?php echo BASE_PATH; ?>/login">LOGIN</a>
-                <a class="text-white text-lg hover:text-green-300 transition duration-200 ease-in-out nav-link" href="<?php echo BASE_PATH; ?>/register">REGISTER</a>
+                <a class="text-gray-50 text-lg nav-link" href="<?php echo BASE_PATH; ?>/">HOME</a>
+                <a class="text-gray-50 text-lg nav-link" href="<?php echo BASE_PATH; ?>/login">LOGIN</a>
+                <a class="text-gray-50 text-lg nav-link" href="<?php echo BASE_PATH; ?>/register">REGISTER</a>
             <?php } else { ?>
                 <div class="relative inline-block text-left" x-data="{ open: false }">
-                    <div>
-                        <button @click="open = !open" type="button" class="text-white text-lg hover:text-green-300 transition duration-200 ease-in-out nav-link" id="options-menu" aria-haspopup="true" aria-expanded="true">
-                            SETTINGS
-                        </button>
-                    </div>
+                    <button @click="open = !open" type="button" class="text-gray-50 text-lg" id="options-menu" aria-haspopup="true" aria-expanded="true">
+                        <i class="fas fa-user-circle fa-lg"></i>
+                        <span>Menu</span>
+                    </button>
                     <div x-show="open" @click.away="open = false" class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5" style="z-index: 1000;">
                         <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                             <?php if ($user_identifiant) { ?>

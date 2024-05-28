@@ -5,7 +5,7 @@ $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : 
 $user_admin = isset($_SESSION['user']['sess_admin']) ? $_SESSION['user']['sess_admin'] : null;
 ?>
 <div class="min-h-screen bg-gray-900 flex flex-col  relative px-4">
-    <div class="absolute top-0 left-0 w-full h-full bg-cover bg-center" style="background-image: url('<?php echo BASE_PATH; ?>/public/images/background.jpg');">
+    <div class="absolute top-0 left-0 w-full h-full bg-cover bg-center" style="background-image: url('<?php echo BASE_PATH; ?>/public/images/background1.jpg');">
     </div>
 
     <div class="bg-gray-900 opacity-100">
@@ -53,10 +53,14 @@ $user_admin = isset($_SESSION['user']['sess_admin']) ? $_SESSION['user']['sess_a
                                     <?php // The user can delete his own comments
                                     //If the user own the comment or if he is an admin, he can edit
                                     if (($user_id) == $hcomment['id_user'] || $user_admin == "1") { ?>
-                                        <div class="mt-2">
+                                        <div class="mt-2 flex justify-end">
                                             <!-- Keep the code and id to be able to return to the page product after action -->
-                                            <a href='<?php echo htmlspecialchars(BASE_PATH); ?>/hikes/editcom/<?= $hike['id']; ?>/<?= $hcomment['id'] ?>'><img src='<?php echo htmlspecialchars(BASE_PATH); ?>/public/images/edit-icon.png' alt='editicon' /></a>
-                                            <a href='<?php echo htmlspecialchars(BASE_PATH); ?>/hikes/deletecom/<?= $hike['id']; ?>/<?= $hcomment['id'] ?>'><img src='<?php echo htmlspecialchars(BASE_PATH); ?>/public/images/delete-icon.png' alt='deleteicon' /></a>
+                                            <a href='<?php echo htmlspecialchars(BASE_PATH); ?>/hikes/editcom/<?= $hike['id']; ?>/<?= $hcomment['id'] ?>' class="mx-2">
+                                                <img src='<?php echo htmlspecialchars(BASE_PATH); ?>/public/images/edit.svg' alt='editicon' style="width: 24px; height: 24px;" />
+                                            </a>
+                                            <a href='<?php echo htmlspecialchars(BASE_PATH); ?>/hikes/deletecom/<?= $hike['id']; ?>/<?= $hcomment['id'] ?>' class="mx-2">
+                                                <img src='<?php echo htmlspecialchars(BASE_PATH); ?>/public/images/delete.svg' alt='deleteicon' style="width: 24px; height: 24px;" />
+                                            </a>
                                         </div>
                                     <?php } ?>
                                 </div>
