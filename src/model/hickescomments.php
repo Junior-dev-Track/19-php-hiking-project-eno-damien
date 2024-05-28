@@ -33,7 +33,8 @@ class HikesComments
     public function delCommentHicke($commentid)
     {
         $statement = $this->connection->getConnection()->prepare(
-            "DELETE FROM hikescomments WHERE id = :id");
+            "DELETE FROM hikescomments WHERE id = :id"
+        );
         $statement->bindParam(':id', $commentid, PDO::PARAM_INT);
         $result = $statement->execute();
         return $result;
@@ -42,21 +43,22 @@ class HikesComments
     public function getCommentHicke($identifier)
     {
         $statement = $this->connection->getConnection()->prepare(
-            "SELECT * FROM hikescomments WHERE id = :id");
+            "SELECT * FROM hikescomments WHERE id = :id"
+        );
         $statement->bindParam(':id', $identifier, PDO::PARAM_INT);
         $statement->execute();
         $result = $statement->fetch();
         return $result;
     }
 
-    public function editCommentHicke($identifier, $message) 
+    public function editCommentHicke($identifier, $message)
     {
-       $statement = $this->connection->getConnection()->prepare(
-           "UPDATE hikescomments SET hikes_comments = :hikes_comments WHERE id = :id"
-       );
-       $statement->bindParam(':hikes_comments', $message, PDO::PARAM_STR);
-       $statement->bindParam(':id', $identifier, PDO::PARAM_INT);
-       $result = $statement->execute();
-       return $result;
+        $statement = $this->connection->getConnection()->prepare(
+            "UPDATE hikescomments SET hikes_comments = :hikes_comments WHERE id = :id"
+        );
+        $statement->bindParam(':hikes_comments', $message, PDO::PARAM_STR);
+        $statement->bindParam(':id', $identifier, PDO::PARAM_INT);
+        $result = $statement->execute();
+        return $result;
     }
 }

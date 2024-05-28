@@ -26,7 +26,7 @@ class Login
     
     public function existEmail($email)
     {
-    $statement = $this->connection->getConnection()->prepare("SELECT id, nickname, email, password FROM users WHERE email = :email");
+    $statement = $this->connection->getConnection()->prepare("SELECT id, nickname, email, password, user_admin FROM users WHERE email = :email");
     $statement->bindParam(':email', $email, PDO::PARAM_STR);
     $statement->execute();
     $result = $statement->fetch(PDO::FETCH_ASSOC);
