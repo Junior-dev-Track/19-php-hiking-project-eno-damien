@@ -34,7 +34,7 @@ class User
                         'sess_user' => $result['nickname'],
                         'sess_admin' => $result['user_admin']
                     ];
-                    
+
                     $success_login = "Login Successfull.";
                     $success_welcome = "Welcome " . htmlspecialchars($result['nickname']);
                 } else {
@@ -102,6 +102,4 @@ class User
 
         require(__DIR__ . '/../../view/user/showprofil.view.php');
     }
-
-    public function EditProfil
 }
