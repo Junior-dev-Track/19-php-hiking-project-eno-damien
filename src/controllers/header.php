@@ -1,6 +1,12 @@
 <?php
 
 namespace Application\Controllers;
+
+require_once('src/lib/database.php');
+require_once('src/model/tags.php');
+
+use Application\Lib\Database\DatabaseConnection;
+use Application\Model\Tags as TagsModel;
 // Set session cookie attributes for security
 session_set_cookie_params([
     'lifetime' => 3600, // Adjust session lifetime as needed
@@ -18,8 +24,19 @@ $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : 
 
 class Header
 {
-    public function execute()
+
+    public function execute($env)
     {
+        $error_com = '';
+        $success_com = '';
+
+        $databaseConnection = new DatabaseConnection($env);
+        //we set the databaseConnection for the __construct method
+        $tags = new TagsModel($databaseConnection);
+
+        $tagList = $tags->getTags();
+
+        //$productComments = $HickesDetails->getProductComments($codeProduct);
         require(__DIR__ . '/../view/header.view.php');
     }
 }

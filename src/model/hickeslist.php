@@ -133,4 +133,16 @@ class Hickeslist
         $result = $statement->execute();
         return $result;
     }
+
+    public function GetHikesSelectedTags($tagsid)
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            "SELECT id, name, distance, duration FROM Hikes WHERE id_tags = :id_tags"
+
+        );
+        $statement->bindParam(':id_tags', $tagsid, PDO::PARAM_INT);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }

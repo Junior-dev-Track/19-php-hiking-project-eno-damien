@@ -121,6 +121,11 @@ $router->map('GET', '/user/hikesmngt/[i:userid]', function ($userid) use ($env) 
     (new Hikesusermngt())->ListHikesUser($userid, $env);
 });
 
+$router->map('GET', '/category/[:tagsid]', function ($tagsid) use ($env) {
+    (new Homepage())->ShowSelectedTags($tagsid, $env);
+});
+
+
 $router->map('GET', '/user/hikesmngt/edit/[i:hikeid]', function ($hikeid) use ($env) {
     (new Hikesusermngt())->EditHikesUser($hikeid, $env, '','');
 });
@@ -141,7 +146,7 @@ $router->map('POST', '/user/hikesmngt/add/save/[i:userid]', function ($userid) u
 $match = $router->match();
 
 if (is_array($match) && is_callable($match['target'])) {
-    (new Header())->execute();
+    (new Header())->execute($env);
     call_user_func_array($match['target'], $match['params']);
     (new Footer())->execute();
 } else {
