@@ -30,8 +30,8 @@ ob_start();
 </div>
 
 <?php
-$contentHeader = "";
 $contentBody = ob_get_clean();
+$contentHeader = "";
 $contentFooter = "";
 require(__DIR__ . '/../layout.view.php');
 ?>

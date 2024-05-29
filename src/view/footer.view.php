@@ -7,3 +7,5 @@ ob_start(); ?>
 <?php
 $contentHeader = "";
 $contentBody = "";
+$contentFooter = ob_get_clean();
+?>

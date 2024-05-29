@@ -1,6 +1,5 @@
 <?php
 ob_start();
-
 ?>
 
 <body>
@@ -46,3 +45,4 @@ $contentHeader = "";
 $contentFooter = "";
 
 require('layout.view.php');
+?>

@@ -48,8 +48,8 @@ var_dump($tagList);
 
 </body>
 <?php
-$contentHeader = "";
 $contentBody = ob_get_clean();
+$contentHeader = "";
 $contentFooter = "";
 require(__DIR__ . '/../layout.view.php');
 ?>

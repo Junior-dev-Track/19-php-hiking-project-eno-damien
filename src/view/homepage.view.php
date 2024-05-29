@@ -29,3 +29,4 @@ $contentHeader = "";
 $contentFooter = "";
 
 require('layout.view.php');
+?>
