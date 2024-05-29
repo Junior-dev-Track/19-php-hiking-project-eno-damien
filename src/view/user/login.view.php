@@ -51,3 +51,4 @@ $contentBody = ob_get_clean();
 $contentHeader = "";
 $contentFooter = "";
 require(__DIR__ . '/../layout.view.php');
+?>

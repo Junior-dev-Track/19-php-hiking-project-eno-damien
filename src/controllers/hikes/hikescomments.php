@@ -28,8 +28,8 @@ class HikesComments
 
             $newData->addCommentHicke($hikescomments, $hikeid, $userid, $posted);
             
-            header('Location: ' . BASE_PATH . '/hikes/' . $hikeid);
-
+            //exit(header('Location: ' . BASE_PATH . '/hikes/' . $hikeid));
+            echo "<script>window.location.href='" . BASE_PATH . "/hikes/" . $hikeid . "'</script>";
         } else {
             $error_com = 'Error. Please retry.';
         }
@@ -44,11 +44,11 @@ class HikesComments
         $comment = $newData->getCommentHicke($commentid);
         
         $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : null;
-        if (!$comment || $comment['id_user'] != $user_id) {
-            header('Location: ' . BASE_PATH . '/hikes/' . $hikeid);
-            exit();
-        }
-
+        //if (!$comment || $comment['id_user'] != $user_id) {
+            //header('Location: ' . BASE_PATH . '/hikes/' . $hikeid);
+            //exit();
+        //}
+        
         $newData->delCommentHicke($commentid);
         header('Location: ' . BASE_PATH . '/hikes/' . $hikeid);
     }

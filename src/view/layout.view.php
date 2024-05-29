@@ -1,4 +1,3 @@
-
 <body>
     <?= $contentHeader ?>
     <?= $contentBody ?>
