@@ -3,9 +3,11 @@
 namespace Application\Controllers\Hikes;
 
 require_once('src/model/hickeslist.php');
+require_once('src/model/tags.php');
 
 use Application\Lib\Database\DatabaseConnection;
 use Application\Model\Hickeslist\Hickeslist;
+use Application\Model\Tags as TagsModel;
 
 class Hikesusermngt
 {
@@ -25,7 +27,7 @@ class Hikesusermngt
 
         $hikes = $newData->EditHikes($hikeid);
         require(__DIR__ . '/../../view/hikes/hikesusermngtedit.view.php');
-        
+
         //elseif ($action=='deletehike') {
         //$hikes = $newData->DeleteHikes($hikeid);
         //}
@@ -50,9 +52,7 @@ class Hikesusermngt
 
         if ($action == 'edithike') {
             $hikes = $newData->SaveHikes($hikeid, $name, $distance, $duration, $elevation_gain, $description, $updated_at, $id_tag);
-        }
-        
-        elseif ($action == 'saveaddhike') {
+        } elseif ($action == 'saveaddhike') {
 
             $created_by = htmlspecialchars($userid);
             $created_at = $date_update->format("Y-m-d H:i:s");
@@ -60,13 +60,18 @@ class Hikesusermngt
         }
 
         //header('Location: ' . BASE_PATH . '/user/hikesmngt/' . $userid);
-        }
-        //elseif ($action=='deletehike') {
-        //$hikes = $newData->DeleteHikes($hikeid);
-        //}
+    }
+    //elseif ($action=='deletehike') {
+    //$hikes = $newData->DeleteHikes($hikeid);
+    //}
 
-    public function AddHikesUser($userid)
+    public function AddHikesUser($userid, $env)
     {
+        $databaseConnection = new DatabaseConnection($env);
+        //we set the databaseConnection for the __construct method
+        $tags = new TagsModel($databaseConnection);
+
+        $tagList = $tags->getTags();
         require(__DIR__ . '/../../view/hikes/hikesusermngtadd.view.php');
     }
 }

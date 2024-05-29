@@ -127,15 +127,15 @@ $router->map('GET', '/category/[:tagsid]', function ($tagsid) use ($env) {
 
 
 $router->map('GET', '/user/hikesmngt/edit/[i:hikeid]', function ($hikeid) use ($env) {
-    (new Hikesusermngt())->EditHikesUser($hikeid, $env, '','');
+    (new Hikesusermngt())->EditHikesUser($hikeid, $env, '', '');
 });
 
-$router->map('POST', '/user/hikesmngt/edit/save/[i:hikeid]/[i:userid]', function ($hikeid,$userid) use ($env) {
+$router->map('POST', '/user/hikesmngt/edit/save/[i:hikeid]/[i:userid]', function ($hikeid, $userid) use ($env) {
     (new Hikesusermngt())->SaveHikesUser($hikeid, $env, $_POST, $userid, 'edithicke');
 });
 
-$router->map('POST', '/user/hikesmngt/add/[i:userid]', function ($userid) {
-    (new Hikesusermngt())->AddHikesUser($userid);
+$router->map('POST', '/user/hikesmngt/add/[i:userid]', function ($userid) use ($env) {
+    (new Hikesusermngt())->AddHikesUser($userid, $env);
 });
 
 $router->map('POST', '/user/hikesmngt/add/save/[i:userid]', function ($userid) use ($env) {
