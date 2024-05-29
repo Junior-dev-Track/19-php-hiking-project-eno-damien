@@ -61,10 +61,23 @@ class Hickeslist
             INNER JOIN users u
             ON hc.id_user = u.id
             WHERE hc.id_hikes = :id_hikes
-            ORDER BY hc.id");
+            ORDER BY hc.id"
+        );
         $commentdb->bindParam(":id_hikes", $hickesid, PDO::PARAM_INT);
         $commentdb->execute();
         $result = $commentdb->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function GetHikesSelectedTags($tagsid)
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            "SELECT id, name, distance, duration FROM Hikes WHERE id_tags = :id_tags"
+
+        );
+        $statement->bindParam(':id_tags', $tagsid, PDO::PARAM_INT);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 }

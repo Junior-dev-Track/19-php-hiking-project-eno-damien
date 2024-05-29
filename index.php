@@ -115,11 +115,16 @@ $router->map('POST', '/user/saveprofil/[i:userid]', function ($userid) use ($env
 $router->map('POST', '/user/deleteprofil/[i:userid]', function ($userid) use ($env) {
     (new User())->DeleteProfil($userid, $env);
 });
+
+$router->map('GET', '/category/[:tagsid]', function ($tagsid) use ($env) {
+    (new Homepage())->ShowSelectedTags($tagsid, $env);
+});
+
 //Route matching
 $match = $router->match();
 
 if (is_array($match) && is_callable($match['target'])) {
-    (new Header())->execute();
+    (new Header())->execute($env);
     call_user_func_array($match['target'], $match['params']);
     (new Footer())->execute();
 } else {
