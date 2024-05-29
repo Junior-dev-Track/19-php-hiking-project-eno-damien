@@ -20,4 +20,6 @@ class Homepage
         
         require(__DIR__ . '/../view/homepage.view.php');
     }
+
+    
 }

@@ -101,7 +101,7 @@ $user_admin = isset($_SESSION['user']['sess_admin']) ? $_SESSION['user']['sess_a
 
         <?php
         $contentHeader = "";
-        $contentBody = "";
-        $contentFooter = ob_get_clean();
+        $contentBody = ob_get_clean();
+        $contentFooter = "";
         require(__DIR__ . '/../layout.view.php');
         ?>

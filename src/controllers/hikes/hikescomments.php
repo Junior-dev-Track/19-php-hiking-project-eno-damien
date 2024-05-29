@@ -7,8 +7,6 @@ require_once('src/model/hickescomments.php');
 use Application\Lib\Database\DatabaseConnection;
 use Application\Model\HikesComments as HikesCommentsModel;
 
-
-
 class HikesComments
 {
 

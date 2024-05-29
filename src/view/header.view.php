@@ -37,7 +37,7 @@ ob_start(); ?>
                                 </div>
                             <?php } ?>
                             <a href="<?php echo BASE_PATH; ?>/user/showprofil/<?= htmlspecialchars($user_id) ?>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Edit Profil</a>
-                            <a href="<?php echo BASE_PATH; ?>/addhike" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Add Hike</a>
+                            <a href="<?php echo BASE_PATH; ?>/user/hikesmngt/<?= htmlspecialchars($user_id) ?>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Hikes Management</a>
                             <a href="<?php echo BASE_PATH; ?>/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Logout</a>
                         </div>
                     </div>

@@ -61,10 +61,76 @@ class Hickeslist
             INNER JOIN users u
             ON hc.id_user = u.id
             WHERE hc.id_hikes = :id_hikes
-            ORDER BY hc.id");
+            ORDER BY hc.id"
+        );
         $commentdb->bindParam(":id_hikes", $hickesid, PDO::PARAM_INT);
         $commentdb->execute();
         $result = $commentdb->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function getHikesListUser($userid)
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            "SELECT id, name, distance, duration FROM Hikes WHERE created_by = :created_by"
+        );
+        $statement->bindParam(':created_by', $userid, PDO::PARAM_INT);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function EditHikes($hickeid)
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            "SELECt id, name, distance, duration, elevation_gain, description, created_by, updated_at, id_tags FROM Hikes WHERE id = :id"
+        );
+        $statement->bindParam(':id', $hickeid, PDO::PARAM_INT);
+        $result = $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function SaveHikes($hikeid, $name, $distance, $duration, $elevation_gain, $description, $updated_at, $id_tag)
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            "UPDATE Hikes SET 
+        name = :name,
+        distance = :distance,
+        duration = :duration,
+        elevation_gain = :elevation_gain,
+        description = :description,
+        updated_at = :updated_at,
+        id_tags = :id_tags
+        WHERE id = :id"
+        );
+        $statement->bindParam(':id', $hikeid, PDO::PARAM_INT);
+        $statement->bindParam(':name', $name, PDO::PARAM_STR);
+        $statement->bindParam(':distance', $distance, PDO::PARAM_STR);
+        $statement->bindParam(':duration', $duration, PDO::PARAM_STR);
+        $statement->bindParam(':elevation_gain', $elevation_gain, PDO::PARAM_STR);
+        $statement->bindParam(':description', $description, PDO::PARAM_STR);
+        $statement->bindParam(':updated_at', $updated_at, PDO::PARAM_STR);
+        $statement->bindParam(':id_tags', $id_tag, PDO::PARAM_INT);
+        $result = $statement->execute();
+        return $result;
+    }
+
+    public function SaveAddHikes($name, $distance, $duration, $elevation_gain, $description, $created_by, $created_at, $updated_at,  $id_tag)
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            "INSERT INTO Hikes (name, distance, duration, elevation_gain, description, created_by, created_at, updated_at, id_tags) VALUES (:name, :distance, :duration, :elevation_gain, :description, :created_by, :created_at, :updated_at, :id_tags)"
+        );
+        $statement->bindParam(':name', $name, PDO::PARAM_STR);
+        $statement->bindParam(':distance', $distance, PDO::PARAM_STR);
+        $statement->bindParam(':duration', $duration, PDO::PARAM_STR);
+        $statement->bindParam(':elevation_gain', $elevation_gain, PDO::PARAM_STR);
+        $statement->bindParam(':description', $description, PDO::PARAM_STR);
+        $statement->bindParam(':created_at', $created_at, PDO::PARAM_STR);
+        $statement->bindParam(':created_by', $created_by, PDO::PARAM_INT);
+        $statement->bindParam(':updated_at', $updated_at, PDO::PARAM_STR);
+        $statement->bindParam(':id_tags', $id_tag, PDO::PARAM_INT);
+        $result = $statement->execute();
         return $result;
     }
 }

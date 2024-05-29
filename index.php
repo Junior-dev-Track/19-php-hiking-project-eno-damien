@@ -48,7 +48,8 @@ use Application\Controllers\{
     User\User,
     User\Logout,
     Hikes\HikesDetails,
-    Hikes\HikesComments
+    Hikes\HikesComments,
+    Hikes\HikesUserMngt
 };
 
 $router = new AltoRouter();
@@ -113,8 +114,29 @@ $router->map('POST', '/user/saveprofil/[i:userid]', function ($userid) use ($env
 });
 
 $router->map('POST', '/user/deleteprofil/[i:userid]', function ($userid) use ($env) {
-    (new User())->DeleteProfil($userid, $env);
+    (new User())->SaveProfil($userid, '', $env, 'deleteprofil');
 });
+
+$router->map('GET', '/user/hikesmngt/[i:userid]', function ($userid) use ($env) {
+    (new Hikesusermngt())->ListHikesUser($userid, $env);
+});
+
+$router->map('GET', '/user/hikesmngt/edit/[i:hikeid]', function ($hikeid) use ($env) {
+    (new Hikesusermngt())->EditHikesUser($hikeid, $env, '','');
+});
+
+$router->map('POST', '/user/hikesmngt/edit/save/[i:hikeid]/[i:userid]', function ($hikeid,$userid) use ($env) {
+    (new Hikesusermngt())->SaveHikesUser($hikeid, $env, $_POST, $userid, 'edithicke');
+});
+
+$router->map('POST', '/user/hikesmngt/add/[i:userid]', function ($userid) {
+    (new Hikesusermngt())->AddHikesUser($userid);
+});
+
+$router->map('POST', '/user/hikesmngt/add/save/[i:userid]', function ($userid) use ($env) {
+    (new Hikesusermngt())->SaveHikesUser('', $env, $_POST, $userid, 'saveaddhike');
+});
+
 //Route matching
 $match = $router->match();
 

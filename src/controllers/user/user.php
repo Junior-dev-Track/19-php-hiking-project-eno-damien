@@ -120,18 +120,15 @@ class User
             $user_infos = $newData->getUserInfos($userid);
         }
 
+        if ($action == 'deleteprofil') {
+            $newData->DeleteUser($userid);
+    
+            session_start();
+            session_destroy();
+            header('Location: ' . BASE_PATH);
+            exit();
+        }
         require(__DIR__ . '/../../view/user/showprofil.view.php');
     }
 
-    public function DeleteProfil($userid, $env)
-    {
-        $databaseConnection = new DatabaseConnection($env);
-        $newData = new UserModel($databaseConnection);
-
-        $newData->DeleteUser($userid);
-
-        session_start();
-        session_destroy();
-        header('Location: ' . BASE_PATH);
-    }
 }
