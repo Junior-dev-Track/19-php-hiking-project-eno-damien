@@ -17,7 +17,8 @@ class HikesComments
 
         if (empty($input['hikesComment'])) {
             $error_com = 'Error. Please retry.';
-            header('Location: ' . BASE_PATH . '/hikes/' . $hikeid);
+            //header('Location: ' . BASE_PATH . '/hikes/' . $hikeid);
+            
         } elseif (!empty($input)) {
             $hikescomments = htmlspecialchars($input['hikesComment']);
 
@@ -26,7 +27,9 @@ class HikesComments
             $posted = $date_comment->format("Y-m-d H:i:s");
 
             $newData->addCommentHicke($hikescomments, $hikeid, $userid, $posted);
+            
             header('Location: ' . BASE_PATH . '/hikes/' . $hikeid);
+
         } else {
             $error_com = 'Error. Please retry.';
         }
@@ -70,10 +73,10 @@ class HikesComments
 
             //Check if comment exists and if the user is the author of the comment, if not, redirect to Page not found
             $comment = $newData->getCommentHicke($commentid);
-            if (!$comment || $comment['userid'] != $userid) {
-                header('Location: ' . BASE_PATH . '/hikes/' . $hikeid);
-                exit();
-            }
+            //if (!$comment || $comment['userid'] != $userid) {
+                //header('Location: ' . BASE_PATH . '/hikes/' . $hikeid);
+                //exit();
+           // }
 
             $success_com = 'Comment edited successfully';
             header('Location: ' . BASE_PATH . '/hikes/' . $hikeid);

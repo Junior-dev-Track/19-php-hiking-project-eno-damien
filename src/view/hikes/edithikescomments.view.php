@@ -17,8 +17,9 @@
         </div>
     </div>
 </div>
-<?php $contentBody = ob_get_clean();
+<?php
 $contentHeader = "";
+$contentBody = ob_get_clean();
 $contentFooter = "";
 require(__DIR__ . '/../layout.view.php');
 ?>
