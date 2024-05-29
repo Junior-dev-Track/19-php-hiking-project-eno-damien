@@ -2,19 +2,39 @@
 $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : null;
 ob_start();
 ?>
-<form action="<?php echo htmlspecialchars(BASE_PATH); ?>/user/hikesmngt/add/save/<?php echo htmlspecialchars($user_id); ?>" method="post">
-    <p>Name: <input type="text" name="name" id="name"> </p>
-    <p>Distance: <input type="text" name="distance" id="distance"> </p>
-    <p>Duration: <input type="text" name="duration" id="duration"> </p>
-    <p>Elevation_gain: <input type="text" name="elevation_gain" id="elevation_gain">
-    <p>Description:
-        <textarea style="border:1px solid black" rows="10" cols="100" name="description" id="description"><?php echo htmlspecialchars($hikes[0]['description'] ?? ''); ?></textarea>
-    </p>
 
-    <p>Category: <input type="text" name="id_tags" id="id_tags" value="<?php echo htmlspecialchars($hikes[0]['id_tags'] ?? ''); ?>">
-        <input type="submit" value="Save modification">
-</form>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 max-w-xl">
+    <form action="<?php echo htmlspecialchars(BASE_PATH); ?>/user/hikesmngt/add/save/<?php echo htmlspecialchars($user_id); ?>" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <p class="block text-gray-700 text-2xl font-bold mb-2">Add a Hike:</p>
+        <p class="mb-4">
+            <label class="block text-gray-700 text-base font-bold mb-2" for="name">Name:</label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="name" id="name">
+        </p>
+        <p class="mb-4">
+            <label class="block text-gray-700 text-base font-bold mb-2" for="distance">Distance:</label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="distance" id="distance">
+        </p>
+        <p class="mb-4">
+            <label class="block text-gray-700 text-base font-bold mb-2" for="duration">Duration:</label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="duration" id="duration">
+        </p>
+        <p class="mb-4">
+            <label class="block text-gray-700 text-base font-bold mb-2" for="elevation_gain">Elevation gain:</label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="elevation_gain" id="elevation_gain">
+        </p>
+        <p class="mb-4">
+            <label class="block text-gray-700 text-base font-bold mb-2" for="description">Description:</label>
+            <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" rows="10" name="description" id="description"><?php echo htmlspecialchars($hikes[0]['description'] ?? ''); ?></textarea>
+        </p>
+        <p class="mb-4">
+            <label class="block text-gray-700 text-base font-bold mb-2" for="id_tags">Category:</label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="id_tags" id="id_tags" value="<?php echo htmlspecialchars($hikes[0]['id_tags'] ?? ''); ?>">
+        </p>
+        <input class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" value="Save modification">
+    </form>
+</div>
 
 <?php
 $contentHeader = "";
