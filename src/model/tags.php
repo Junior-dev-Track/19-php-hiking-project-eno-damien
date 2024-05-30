@@ -2,7 +2,7 @@
 
 namespace Application\Model;
 
-require_once('src/lib/database.php');
+// require_once('src/lib/database.php');
 
 use Application\Lib\Database\DatabaseConnection;
 //avoid error using native class PDO

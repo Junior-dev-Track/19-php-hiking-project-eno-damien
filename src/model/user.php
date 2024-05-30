@@ -61,18 +61,23 @@ class User
         return $result;
     }
 
+
     public function addUser($nickname, $email, $password_crypt, $user_admin)
     {
         $statement = $this->connection->getConnection()->prepare(
-            "INSERT INTO users (nickname, email, password, user_admin) VALUES (:nickname, :email , :password_crypt, :user_admin)"
+            "INSERT INTO users (nickname, email, password, user_admin) VALUES (:nickname, :email, :password_crypt, :user_admin)"
         );
         $statement->bindParam(':nickname', $nickname, PDO::PARAM_STR);
         $statement->bindParam(':email', $email, PDO::PARAM_STR);
         $statement->bindParam(':password_crypt', $password_crypt, PDO::PARAM_STR);
         $statement->bindParam(':user_admin', $user_admin, PDO::PARAM_INT);
         $statement->execute();
-        return $statement;
+       
+        // Retrieve the last inserted ID
+        $lastInsertId = $this->connection->lastInsertId();
+        return $lastInsertId; // Return the last inserted ID
     }
+    
 
     public function getUserInfos($userid)
     {

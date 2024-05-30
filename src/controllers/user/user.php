@@ -13,6 +13,8 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
+use PDO;
+
 class User
 {
     public function login($env)
@@ -35,8 +37,7 @@ class User
                     // store data of user in $_SESSION
                     $_SESSION['user'] = [
                         'sess_id' => $result['id'],
-                        'sess_user' => $result['nickname'],
-                        'sess_admin' => $result['user_admin']
+                        'sess_user' => $result['nickname']
                     ];
 
                     $success_login = "Login Successfull.";
@@ -79,14 +80,15 @@ class User
 
                         $userCount = $newData->firstUser();
                         $user_admin = ($userCount == 0) ? 1 : 0;
-
-                        $newData->addUser($nickname, $email, $password_crypt, $user_admin);
+                        $id = $newData->addUser($nickname, $email, $password_crypt, $user_admin);
                         //Autologin after subscription
-                        $id = $databaseConnection->getConnection()->lastInsertId();
+                        
                         $_SESSION['user'] = [
                             'sess_id' => $id,
                             'sess_user' => $nickname
                         ];
+                       
+                    
 
                         // Send email after successful registration
                         // $phpmailer = new PHPMailer();
