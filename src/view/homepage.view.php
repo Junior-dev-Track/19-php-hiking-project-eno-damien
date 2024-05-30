@@ -9,10 +9,6 @@
             <div class="overflow-hidden">
                 <a href="<?php echo BASE_PATH; ?>/hikes/<?= htmlspecialchars($hike["id"]); ?>">
                     <?php
-                    if ($counter <= 8) {
-                        // Use the existing logic for the first 8 hikes.
-                        $imagePath = BASE_PATH . "/public/images/" . htmlspecialchars($hike["id"] ?? 'default') . ".jpg";
-                    } else {
                         // Get the category of the hike.
                         $category = $hike["category"];
 
@@ -20,8 +16,7 @@
                         $randomNumber = rand(1, 4);
 
                         // Construct the path to the random image.
-                        $imagePath = BASE_PATH . "/public/images/{$category}{$randomNumber}.jpg";
-                    }
+                        $imagePath = BASE_PATH . "/public/images/{$category}/{$randomNumber}.jpg";
                     ?>
                     <img src="<?= $imagePath ?>" alt="<?= htmlspecialchars($hike['name']); ?>" class="w-full h-64 object-cover shadow-xl transform transition duration-500 hover:scale-110 cursor-pointer">
                 </a>

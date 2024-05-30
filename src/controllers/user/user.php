@@ -89,20 +89,20 @@ class User
                         ];
 
                         // Send email after successful registration
-                        $phpmailer = new PHPMailer();
-                        $phpmailer->isSMTP();
-                        $phpmailer->Host = 'smtp.enkelan.tech';
-                        $phpmailer->SMTPAuth = true;
-                        $phpmailer->Port = 587;
-                        $phpmailer->Username = 'api';
-                        $phpmailer->Password = 'YMYdG$R9';
-                        $phpmailer->setFrom('eno@enkelan.tech', 'Mailer');
-                        $phpmailer->addAddress($email, $nickname);     // Add a recipient
-                        $phpmailer->isHTML(true);                      // Set email format to HTML
-                        $phpmailer->Subject = 'Welcome to our website!';
-                        $phpmailer->Body    = 'This is the HTML message body <b>in bold!</b>';
-                        $phpmailer->AltBody = 'This is the body in plain text for non-HTML mail clients';
-                        $phpmailer->send();
+                        // $phpmailer = new PHPMailer();
+                        // $phpmailer->isSMTP();
+                        // $phpmailer->Host = 'smtp.enkelan.tech';
+                        // $phpmailer->SMTPAuth = true;
+                        // $phpmailer->Port = 587;
+                        // $phpmailer->Username = 'api';
+                        // $phpmailer->Password = 'YMYdG$R9';
+                        // $phpmailer->setFrom('eno@enkelan.tech', 'Mailer');
+                        // $phpmailer->addAddress($email, $nickname);     // Add a recipient
+                        // $phpmailer->isHTML(true);                      // Set email format to HTML
+                        // $phpmailer->Subject = 'Welcome to our website!';
+                        // $phpmailer->Body    = 'This is the HTML message body <b>in bold!</b>';
+                        // $phpmailer->AltBody = 'This is the body in plain text for non-HTML mail clients';
+                        // $phpmailer->send();
                     }
                 }
             }

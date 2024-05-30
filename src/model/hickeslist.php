@@ -35,9 +35,10 @@ class Hickeslist
     public function getListOfHickes()
     {
         $statement = $this->connection->getConnection()->prepare(
-            "SELECT id, name, distance, duration 
-            FROM Hikes
-            
+            "SELECT h.id, h.name, h.distance, h.duration, t.category
+            FROM Hikes h
+            INNER JOIN tags t
+            ON h.id_tags = t.ID
             "
         );
         $statement->execute();
