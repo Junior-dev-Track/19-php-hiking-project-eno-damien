@@ -6,6 +6,8 @@
   },
   "require": {
       "ext-pdo": "*",
-      "altorouter/altorouter": "^2.0"
+      "altorouter/altorouter": "^2.0",
+    "symfony/mime": "^6.4",
+    "maildrop/maildrop-php": "^1.3"
   }
 }
