@@ -9,8 +9,9 @@ require_once('src/model/hickescomments.php');
 use Application\Lib\Database\DatabaseConnection;
 use Application\Model\User as UserModel;
 use Application\Model\Login as UserLogin;
-use Application\Model\HikesComments as HikesCommentsModel;
 use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
 class User
 {
@@ -82,34 +83,22 @@ class User
                         $newData->addUser($nickname, $email, $password_crypt, $user_admin);
                         //Autologin after subscription
                         $id = $databaseConnection->getConnection()->lastInsertId();
-                        
-                        $_SESSION['user'] = [
-                            'sess_id' => $id,
-                            'sess_user' => $nickname,
-                            'sess_admin' => $user_admin
-                        ];
 
-                        // After the user is successfully registered and logged in, send the email
+                        // Send email after successful registration
                         $phpmailer = new PHPMailer();
                         $phpmailer->isSMTP();
-                        $phpmailer->Host = 'smtp.mailtrap.io';
+                        $phpmailer->Host = 'smtp.enkelan.tech';
                         $phpmailer->SMTPAuth = true;
                         $phpmailer->Port = 587;
-                        $phpmailer->Username = 'your_mailtrap_username';
-                        $phpmailer->Password = 'your_mailtrap_password';
-
-                        $phpmailer->setFrom('mailtrap@example.com', 'Mailtrap');
-                        $phpmailer->addAddress($email); // Add a recipient
-                        $phpmailer->isHTML(true); // Set email format to HTML
+                        $phpmailer->Username = 'api';
+                        $phpmailer->Password = 'YMYdG$R9';
+                        $phpmailer->setFrom('eno@enkelan.tech', 'Mailer');
+                        $phpmailer->addAddress($email, $nickname);     // Add a recipient
+                        $phpmailer->isHTML(true);                      // Set email format to HTML
                         $phpmailer->Subject = 'Welcome to our website!';
-                        $phpmailer->Body    = 'Thank you for registering. We hope you enjoy using our website!';
-
-                        if (!$phpmailer->send()) {
-                            echo 'Message could not be sent.';
-                            echo 'Mailer Error: ' . $phpmailer->ErrorInfo;
-                        } else {
-                            echo 'Message has been sent';
-                        }
+                        $phpmailer->Body    = 'This is the HTML message body <b>in bold!</b>';
+                        $phpmailer->AltBody = 'This is the body in plain text for non-HTML mail clients';
+                        $phpmailer->send();
                     }
                 }
             }
@@ -126,45 +115,32 @@ class User
 
         $user_infos = $newData->getUserInfos($userid);
 
-        //we check if the user connected is an admin, if yes, he will be able to edit and delete comments (see hikesdetails.view.php) condition || ($user_admin == "1")
-        $newData = new UserModel($databaseConnection);
-        $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : null;
-        $user_admin = $newData->getUserAdminStatus($user_id);
-
         require(__DIR__ . '/../../view/user/showprofil.view.php');
     }
 
     public function SaveProfil($userid, $input, $env, $action)
     {
-        $databaseConnection = new DatabaseConnection($env);
-        $newData = new UserModel($databaseConnection);
-
-        if ($action == 'deleteprofil') {
-            $newData->DeleteUser($userid);
-        
-            //we delete all comments of the user (model hikescomments.php)
-            $newData = new HikesCommentsModel($databaseConnection);
-            $newData->delAllCommentHicke($userid);
-
-            session_destroy();
-            echo "<script>window.location.href='" . BASE_PATH . "'</script>";
-            exit();
-        }
-
         $firstname = htmlspecialchars($input['firstname']);
         $lastname = htmlspecialchars($input['lastname']);
         $nickname = htmlspecialchars($input['nickname']);
         $email = filter_var($input['email'], FILTER_SANITIZE_EMAIL);
 
-        //we check if the user connected is an admin, if yes, he will be able to edit and delete comments (see hikesdetails.view.php) condition || ($user_admin == "1")
+        $databaseConnection = new DatabaseConnection($env);
         $newData = new UserModel($databaseConnection);
-        $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : null;
-        $user_admin = $newData->getUserAdminStatus($user_id);
 
         $newData->SaveUserInfos($userid, $firstname, $lastname, $nickname, $email);
 
         if ($action == 'saveprofil') {
             $user_infos = $newData->getUserInfos($userid);
+        }
+
+        if ($action == 'deleteprofil') {
+            $newData->DeleteUser($userid);
+
+            session_start();
+            session_destroy();
+            header('Location: ' . BASE_PATH);
+            exit();
         }
         require(__DIR__ . '/../../view/user/showprofil.view.php');
     }
