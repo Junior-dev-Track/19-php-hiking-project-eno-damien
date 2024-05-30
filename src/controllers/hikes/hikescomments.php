@@ -28,7 +28,6 @@ class HikesComments
 
             $newData->addCommentHicke($hikescomments, $hikeid, $userid, $posted);
             
-            //exit(header('Location: ' . BASE_PATH . '/hikes/' . $hikeid));
             echo "<script>window.location.href='" . BASE_PATH . "/hikes/" . $hikeid . "'</script>";
         } else {
             $error_com = 'Error. Please retry.';
@@ -50,7 +49,7 @@ class HikesComments
         //}
         
         $newData->delCommentHicke($commentid);
-        header('Location: ' . BASE_PATH . '/hikes/' . $hikeid);
+        echo "<script>window.location.href='" . BASE_PATH . "/hikes/" . $hikeid . "'</script>";
     }
 
     public function EditComment($hikeid, $commentid, $input, $action, $env)
@@ -79,11 +78,11 @@ class HikesComments
            // }
 
             $success_com = 'Comment edited successfully';
-            header('Location: ' . BASE_PATH . '/hikes/' . $hikeid);
+            echo "<script>window.location.href='" . BASE_PATH . "/hikes/" . $hikeid . "'</script>";
            
         } else {
             $error_com = 'Error. data form incorrect, please retry.';
-            header('Location: ' . BASE_PATH . '/hikes/' . $hikeid);
+            echo "<script>window.location.href='" . BASE_PATH . "/hikes/" . $hikeid . "'</script>";
         }
     }
 }

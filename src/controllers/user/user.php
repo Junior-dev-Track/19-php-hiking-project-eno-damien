@@ -84,7 +84,6 @@ class User
                             'sess_user' => $nickname,
                             'sess_admin' => $user_admin
                         ];
-                        var_dump($_SESSION['user']);
                     }
                 }
             }

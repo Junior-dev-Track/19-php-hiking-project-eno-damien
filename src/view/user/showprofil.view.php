@@ -1,6 +1,4 @@
-<?php
-ob_start();
-?>
+<?php ob_start(); ?>
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 max-w-xl">
   <?php if ($action == "editprofil") { ?>

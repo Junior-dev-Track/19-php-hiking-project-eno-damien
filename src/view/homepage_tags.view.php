@@ -1,8 +1,5 @@
-<?php
-ob_start();
-?>
+<?php ob_start(); ?>
 
-<body>
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mx-auto max-w-screen-xl py-8">
     <?php
     if (!isset($hikes_array)) {
@@ -37,12 +34,12 @@ ob_start();
     } ?>
 
   </div>
-</body>
+
 
 <?php
 $contentBody = ob_get_clean();
 $contentHeader = "";
 $contentFooter = "";
 
-require('layout.view.php');
+require(__DIR__ . '/layout.view.php');
 ?>

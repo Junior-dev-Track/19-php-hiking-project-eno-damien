@@ -1,8 +1,7 @@
-<?php
-ob_start(); ?>
-<header class="bg-green-500 text-white text-center py-4">
-  <p>&copy; Eno-Damien Hiking project</p>
-</header>
+<?php ob_start(); ?>
+
+<p>&copy; Eno-Damien Hiking project</p>
+
 
 <?php
 $contentHeader = "";
