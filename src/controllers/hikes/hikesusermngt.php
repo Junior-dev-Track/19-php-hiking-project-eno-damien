@@ -60,20 +60,16 @@ class Hikesusermngt
         $id_tag = htmlspecialchars($input['id_tags']);
 
         if ($action == 'edithike') {
-            
-            $hikes = $newData->SaveHikes($hikeid, $name, $distance, $duration, $elevation_gain, $description, $updated_at, $id_tag);
-        } elseif ($action == 'saveaddhike') {
+            $message = $newData->SaveHikes($hikeid, $name, $distance, $duration, $elevation_gain, $description, $updated_at, $id_tag);
+            echo "<script>window.location.href='" . BASE_PATH . "/user/hikesmngt/" . $userid . "?message=" . urlencode($message) . "'</script>";
+        } 
+        elseif ($action == 'saveaddhike') {
             $created_by = htmlspecialchars($userid);
             $created_at = $date_update->format("Y-m-d H:i:s");
-            $hikes = $newData->SaveAddHikes($name, $distance, $duration, $elevation_gain, $description, $created_by, $created_at, $updated_at, $id_tag);
+            $message = $newData->SaveAddHikes($name, $distance, $duration, $elevation_gain, $description, $created_by, $created_at, $updated_at, $id_tag);
+            echo "<script>window.location.href='" . BASE_PATH . "/user/hikesmngt/" . $userid . "?message=" . urlencode($message) . "'</script>";
         }
-
-        echo "<script>window.location.href='" . BASE_PATH . "/user/hikesmngt/" . $userid . "'</script>";
-       
     }
-    //elseif ($action=='deletehike') {
-    //$hikes = $newData->DeleteHikes($hikeid);
-    //}
 
     public function AddHikesUser($userid, $env)
     {

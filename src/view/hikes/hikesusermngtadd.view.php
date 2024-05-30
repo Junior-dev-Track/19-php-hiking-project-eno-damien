@@ -13,11 +13,11 @@ $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : 
             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="name" id="name" required>
         </p>
         <p class="mb-4">
-            <label class="block text-gray-700 text-base font-bold mb-2" for="distance">Distance:</label>
+            <label class="block text-gray-700 text-base font-bold mb-2" for="distance">Distance (Kms):</label>
             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="distance" id="distance" required>
         </p>
         <p class="mb-4">
-            <label class="block text-gray-700 text-base font-bold mb-2" for="duration">Duration:</label>
+            <label class="block text-gray-700 text-base font-bold mb-2" for="duration">Duration (hours:minute):</label>
             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="duration" id="duration" required>
         </p>
         <p class="mb-4">

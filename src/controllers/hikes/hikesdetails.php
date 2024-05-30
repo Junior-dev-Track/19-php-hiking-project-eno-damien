@@ -40,10 +40,11 @@ class HikesDetails
         //we set the databaseConnection for the __construct method
         $HickesDetails = new Hickeslist($databaseConnection);
 
-        $hike = $HickesDetails->deleteHike($hikesId);
+        $message = $HickesDetails->deleteHike($hikesId);
 
         $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : null;
         
-        echo "<script>window.location.href='" . BASE_PATH . "/user/hikesmngt/" . $user_id . "'</script>";
+        echo "<script>window.location.href='" . BASE_PATH . "/user/hikesmngt/" . $user_id . "?message=" . urlencode($message) . "'</script>";
+
     }
 }
