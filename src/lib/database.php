@@ -26,6 +26,6 @@ class DatabaseConnection
 
     public function lastInsertId()
     {
-        return $this->pdo->lastInsertId();
+        return $this->database->lastInsertId();
     }
 }

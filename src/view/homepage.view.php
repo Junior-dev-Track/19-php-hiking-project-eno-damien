@@ -1,4 +1,7 @@
-<?php ob_start(); ?>
+<?php ob_start(); 
+$user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : null;
+var_dump($_SESSION['user']);
+?>
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mx-auto max-w-screen-xl py-8">
     <?php
     $counter = 0;
