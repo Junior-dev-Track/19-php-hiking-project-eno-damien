@@ -49,7 +49,7 @@ class Hickeslist
             FROM Hikes h
             INNER JOIN users u
             ON h.created_by = u.id
-            WHERE h.id = :id OR u.user_admin = '1' OR u.user_admin = '0'"
+            WHERE h.id = :id"
         );
         $statement->bindParam(':id', $hikesId, PDO::PARAM_INT);
         $statement->execute();
@@ -74,12 +74,11 @@ class Hickeslist
         return $result;
     }
 
-    public function getHikesListUser($userid)
+    public function getHikesListUser()
     {
         $statement = $this->connection->getConnection()->prepare(
-            "SELECT id, name, distance, duration FROM Hikes WHERE created_by = :created_by"
+            "SELECT id, name, distance, duration, created_by FROM Hikes"
         );
-        $statement->bindParam(':created_by', $userid, PDO::PARAM_INT);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;

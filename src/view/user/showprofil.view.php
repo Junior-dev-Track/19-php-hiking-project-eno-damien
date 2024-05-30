@@ -1,4 +1,6 @@
-<?php ob_start(); ?>
+<?php 
+$user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : null;
+ob_start(); ?>
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 max-w-xl">
   <?php if ($action == "editprofil") { ?>
@@ -43,16 +45,19 @@
         <label class="block text-gray-700 text-2xl font-bold mb-2" for="email">Email</label>
         <p><?php echo htmlspecialchars($user_infos[0]["email"] ?? ''); ?></p>
       </div>
-      <div class="flex items-center">
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-          Edit Your Profile
-        </button>
+      <?php if (($user_id == $user_infos[0]["id"]) || ($user_admin == "1")) { ?>
+        <div class="flex items-center">
+          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+            Edit Your Profile
+          </button>
     </form>
+
     <form action="<?php echo htmlspecialchars(BASE_PATH); ?>/user/deleteprofil/<?php echo htmlspecialchars($user_infos[0]['id']); ?>" method="post" class="ml-5 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onsubmit="return confirm('Are you sure you want to delete your profile?');">
       <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete Your Profile</button>
     </form>
   <?php } ?>
 </div>
+<?php } ?>
 </div>
 
 <?php

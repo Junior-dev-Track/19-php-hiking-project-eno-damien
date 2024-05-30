@@ -2,9 +2,22 @@
 ob_start();
 $user_identifiant = isset($_SESSION['user']['sess_user']) ? $_SESSION['user']['sess_user'] : null;
 $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : null;
-//$user_admin = isset($_SESSION['user']['sess_admin']) ? $_SESSION['user']['sess_admin'] : null;
-var_dump($hikesComments_array);
 ?>
+<style>
+    .selected-div::after {
+        content: "";
+        background-image: url('<?php echo htmlspecialchars(BASE_PATH); ?>/public/images/hikeman.png');
+        background-size: 100px 100px;
+        background-repeat: no-repeat;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 100px;
+        height: 100px;
+        transform: translateY(5px);
+        pointer-events: none; /* This ensures that the pseudo-element does not block any interactions with other elements */
+    }
+</style>
 <div class="min-h-screen bg-gray-900 flex flex-col  relative px-4">
     <div class="absolute top-0 left-0 w-full h-full bg-cover bg-center" style="background-image: url('<?php echo BASE_PATH; ?>/public/images/background1.jpg');">
     </div>
@@ -15,16 +28,13 @@ var_dump($hikesComments_array);
             <div class="bg-cover bg-center text-center overflow-hidden" style="min-height: 500px; background-image: url('<?php echo BASE_PATH; ?>/public/images/<?php echo htmlspecialchars($hike["id"] ?? 'default'); ?>.jpg')" title="<?= htmlspecialchars($hike['name']); ?>">
             </div>
             <div class="max-w-3xl mx-auto">
-                <div class="mt-3 bg-white rounded-b lg:rounded-b-none lg:rounded-r flex flex-col justify-between leading-normal">
+                <div class="mt-3 bg-white rounded-b lg:rounded-b-none lg:rounded-r flex flex-col justify-between leading-normal relative selected-div">
                     <div class="bg-white relative top-0 -mt-32 p-5 sm:p-10">
                         <h1 class="text-gray-900 font-bold text-3xl mb-2"><?= htmlspecialchars($hike['name']); ?></h1>
                         <p class="text-gray-700 text-xs mt-2">Written By:
-                            <a href="#" class="text-indigo-600 font-medium hover:text-gray-900 transition duration-500 ease-in-out">
-                                <?= htmlspecialchars($hike["created_by"]); ?>
-                            </a> In
-                            <a href="#" class="text-xs text-indigo-600 font-medium hover:text-gray-900 transition duration-500 ease-in-out">
-                                Hiking
-                            </a>
+                            <a href="<?php echo htmlspecialchars(BASE_PATH); ?>/user/showprofil/<?php echo htmlspecialchars($hike["created_by"]); ?>" target="_blank" text-green-600 font-medium hover:text-gray-900 transition duration-500 ease-in-out">
+                                <?= htmlspecialchars($hike["nickname"]); ?>
+                            </a> (<?= htmlspecialchars($hike["created_at"]); ?>)
                         </p>
 
                         <p class="text-base leading-8 my-5">
@@ -32,11 +42,11 @@ var_dump($hikesComments_array);
                             <strong>Duration:</strong> <?= htmlspecialchars($hike["duration"]); ?> Hours<br>
                             <strong>Elevation gain:</strong> <?= htmlspecialchars($hike["elevation_gain"]); ?> M<br>
                             <strong>Description:</strong> <?= htmlspecialchars($hike["description"]); ?><br>
-                            <strong>Created by:</strong> <?= htmlspecialchars($hike["nickname"]); ?><br>
-                            <strong>Created at:</strong> <?= htmlspecialchars($hike["created_at"]); ?><br>
                             <strong>Updated at :</strong> <?= htmlspecialchars($hike["updated_at"]); ?>
                         </p>
                     </div>
+                    <div class="absolute bottom-0 right-0 w-full h-full">
+                     </div>
                 </div>
             </div>
         </div>
