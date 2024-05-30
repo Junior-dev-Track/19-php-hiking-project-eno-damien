@@ -8,6 +8,7 @@ require_once('src/model/user.php');
 use Application\Lib\Database\DatabaseConnection;
 use Application\Model\User as UserModel;
 use Application\Model\Login as UserLogin;
+use PHPMailer\PHPMailer\PHPMailer;
 
 class User
 {
@@ -84,6 +85,28 @@ class User
                             'sess_user' => $nickname,
                             'sess_admin' => $user_admin
                         ];
+
+                        // After the user is successfully registered and logged in, send the email
+                        $phpmailer = new PHPMailer();
+                        $phpmailer->isSMTP();
+                        $phpmailer->Host = 'smtp.mailtrap.io';
+                        $phpmailer->SMTPAuth = true;
+                        $phpmailer->Port = 587;
+                        $phpmailer->Username = 'your_mailtrap_username';
+                        $phpmailer->Password = 'your_mailtrap_password';
+
+                        $phpmailer->setFrom('mailtrap@example.com', 'Mailtrap');
+                        $phpmailer->addAddress($email); // Add a recipient
+                        $phpmailer->isHTML(true); // Set email format to HTML
+                        $phpmailer->Subject = 'Welcome to our website!';
+                        $phpmailer->Body    = 'Thank you for registering. We hope you enjoy using our website!';
+
+                        if (!$phpmailer->send()) {
+                            echo 'Message could not be sent.';
+                            echo 'Mailer Error: ' . $phpmailer->ErrorInfo;
+                        } else {
+                            echo 'Message has been sent';
+                        }
                     }
                 }
             }
@@ -121,7 +144,7 @@ class User
 
         if ($action == 'deleteprofil') {
             $newData->DeleteUser($userid);
-    
+
             session_start();
             session_destroy();
             header('Location: ' . BASE_PATH);
@@ -129,5 +152,4 @@ class User
         }
         require(__DIR__ . '/../../view/user/showprofil.view.php');
     }
-
 }
