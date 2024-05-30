@@ -45,7 +45,11 @@ class Hickeslist
     public function getHikesDetails($hikesId)
     {
         $statement = $this->connection->getConnection()->prepare(
-            "SELECT id, name, distance, duration, elevation_gain, description, created_by, created_at, updated_at FROM Hikes WHERE id = :id"
+            "SELECT h.id, h.name, h.distance, h.duration, h.elevation_gain, h.description, h.created_by, h.created_at, h.updated_at, u.nickname, u.user_admin
+            FROM Hikes h
+            INNER JOIN users u
+            ON h.created_by = u.id
+            WHERE h.id = :id OR u.user_admin = '1' OR u.user_admin = '0'"
         );
         $statement->bindParam(':id', $hikesId, PDO::PARAM_INT);
         $statement->execute();
@@ -54,20 +58,27 @@ class Hickeslist
     }
 
     public function getHikesComments($hickesid)
-    {
-        $commentdb = $this->connection->getConnection()->prepare(
-            "SELECT hc.id, hc.hikes_comments, hc.id_user, hc.posted_at, u.nickname, u.user_admin
-            FROM hikescomments hc
-            INNER JOIN users u
-            ON hc.id_user = u.id
-            WHERE hc.id_hikes = :id_hikes
-            ORDER BY hc.id"
-        );
-        $commentdb->bindParam(":id_hikes", $hickesid, PDO::PARAM_INT);
-        $commentdb->execute();
-        $result = $commentdb->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+{
+    $commentdb = $this->connection->getConnection()->prepare(
+        "SELECT hc.id, hc.hikes_comments, hc.id_user, hc.posted_at, u.nickname, u.user_admin
+        FROM hikescomments hc
+        INNER JOIN users u
+        ON hc.id_user = u.id
+        WHERE hc.id_hikes = :id_hikes
+        ORDER BY hc.id"
+    );
+    $commentdb->bindParam(":id_hikes", $hickesid, PDO::PARAM_INT);
+    $commentdb->execute();
+    $result = $commentdb->fetchAll(PDO::FETCH_ASSOC);
+
+    // Ajoutez une nouvelle clé dans chaque commentaire pour indiquer si l'utilisateur est un administrateur global
+    foreach ($result as &$comment) {
+        $comment['is_admin'] = ($comment['user_admin'] == '1');
     }
+
+    return $result;
+}
+
 
     public function getHikesListUser($userid)
     {

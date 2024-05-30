@@ -2,7 +2,8 @@
 ob_start();
 $user_identifiant = isset($_SESSION['user']['sess_user']) ? $_SESSION['user']['sess_user'] : null;
 $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : null;
-$user_admin = isset($_SESSION['user']['sess_admin']) ? $_SESSION['user']['sess_admin'] : null;
+//$user_admin = isset($_SESSION['user']['sess_admin']) ? $_SESSION['user']['sess_admin'] : null;
+var_dump($hikesComments_array);
 ?>
 <div class="min-h-screen bg-gray-900 flex flex-col  relative px-4">
     <div class="absolute top-0 left-0 w-full h-full bg-cover bg-center" style="background-image: url('<?php echo BASE_PATH; ?>/public/images/background1.jpg');">
@@ -31,6 +32,7 @@ $user_admin = isset($_SESSION['user']['sess_admin']) ? $_SESSION['user']['sess_a
                             <strong>Duration:</strong> <?= htmlspecialchars($hike["duration"]); ?> Hours<br>
                             <strong>Elevation gain:</strong> <?= htmlspecialchars($hike["elevation_gain"]); ?> M<br>
                             <strong>Description:</strong> <?= htmlspecialchars($hike["description"]); ?><br>
+                            <strong>Created by:</strong> <?= htmlspecialchars($hike["nickname"]); ?><br>
                             <strong>Created at:</strong> <?= htmlspecialchars($hike["created_at"]); ?><br>
                             <strong>Updated at :</strong> <?= htmlspecialchars($hike["updated_at"]); ?>
                         </p>
@@ -52,7 +54,8 @@ $user_admin = isset($_SESSION['user']['sess_admin']) ? $_SESSION['user']['sess_a
                                     <p class="text-gray-700"><?= $hcomment['hikes_comments'] ?></p>
                                     <?php // The user can delete his own comments
                                     //If the user own the comment or if he is an admin, he can edit
-                                    if (($user_id) == $hcomment['id_user'] || $user_admin == "1") { ?>
+                                    //if (($user_id) == $hcomment['id_user'] || $user_admin == "1") { 
+                                        if (($user_id == $hcomment['id_user']) || $hcomment['is_admin']) { ?>
                                         <div class="mt-2 flex justify-end">
                                             <!-- Keep the code and id to be able to return to the page product after action -->
                                             <a href='<?php echo htmlspecialchars(BASE_PATH); ?>/hikes/editcom/<?= $hike['id']; ?>/<?= $hcomment['id'] ?>' class="mx-2">
@@ -79,7 +82,7 @@ $user_admin = isset($_SESSION['user']['sess_admin']) ? $_SESSION['user']['sess_a
                                 <label for="productComment" class="block text-gray-700 text-sm font-bold mb-2">Leave a new comment:</label>
                                 <!-- Comment form -->
                                 <form action="<?php echo BASE_PATH; ?>/hikes/addcomment/<?= $hike["id"]; ?>/<?= $user_id; ?>" method="post">
-                                    <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" rows="5" name="hikesComment" id="hikeComment"></textarea>
+                                    <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" rows="5" name="hikesComment" id="hikeComment" required></textarea>
                                     <input type="submit" class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" value="Post your comment">
                                 </form>
                             </div>
