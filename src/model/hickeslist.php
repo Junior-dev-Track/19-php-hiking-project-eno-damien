@@ -117,7 +117,11 @@ class Hickeslist
         $statement->bindParam(':updated_at', $updated_at, PDO::PARAM_STR);
         $statement->bindParam(':id_tags', $id_tag, PDO::PARAM_INT);
         $result = $statement->execute();
-        return $result;
+        if ($result) {
+            return "Hike edited successfully.";
+        } else {
+            return "Failed to edit hike.";
+        }
     }
 
     public function SaveAddHikes($name, $distance, $duration, $elevation_gain, $description, $created_by, $created_at, $updated_at,  $id_tag)
@@ -135,7 +139,12 @@ class Hickeslist
         $statement->bindParam(':updated_at', $updated_at, PDO::PARAM_STR);
         $statement->bindParam(':id_tags', $id_tag, PDO::PARAM_INT);
         $result = $statement->execute();
-        return $result;
+        
+        if ($result) {
+            return "Hike added successfully.";
+        } else {
+            return "Failed to add hike.";
+        }
     }
 
     public function GetHikesSelectedTags($tagsid)
@@ -148,5 +157,20 @@ class Hickeslist
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
+    }
+
+    public function deleteHike($hikesId)
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            "DELETE FROM Hikes WHERE id = :id"
+        );
+        $statement->bindParam(':id', $hikesId, PDO::PARAM_INT);
+        $result = $statement->execute();
+        
+        if ($result) {
+            return "Hike deleted successfully.";
+        } else {
+            return "Failed to delete hike.";
+        }
     }
 }

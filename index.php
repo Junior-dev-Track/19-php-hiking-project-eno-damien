@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         .nav-link {
             position: relative;
@@ -131,7 +132,7 @@ $router->map('GET', '/user/hikesmngt/edit/[i:hikeid]', function ($hikeid) use ($
 });
 
 $router->map('POST', '/user/hikesmngt/edit/save/[i:hikeid]/[i:userid]', function ($hikeid, $userid) use ($env) {
-    (new Hikesusermngt())->SaveHikesUser($hikeid, $env, $_POST, $userid, 'edithicke');
+    (new Hikesusermngt())->SaveHikesUser($hikeid, $env, $_POST, $userid, 'edithike');
 });
 
 $router->map('POST', '/user/hikesmngt/add/[i:userid]', function ($userid) use ($env) {
@@ -141,6 +142,11 @@ $router->map('POST', '/user/hikesmngt/add/[i:userid]', function ($userid) use ($
 $router->map('POST', '/user/hikesmngt/add/save/[i:userid]', function ($userid) use ($env) {
     (new Hikesusermngt())->SaveHikesUser('', $env, $_POST, $userid, 'saveaddhike');
 });
+
+$router->map('GET', '/user/hikesmngt/delete/[i:hikeid]', function ($hikeid) use ($env) {
+    (new HikesDetails())->DeleteHike($hikeid, $env);
+});
+
 
 //Route matching
 $match = $router->match();
