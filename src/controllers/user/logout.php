@@ -7,6 +7,6 @@ class Logout
     {
         //session_start();
         session_destroy();
-        header('Location: ' . BASE_PATH);
+        echo "<script>window.location.href='" . BASE_PATH . "'</script>";
     }
 }

@@ -1,10 +1,5 @@
-<?php
-ob_start();
-var_dump($tagList);
-?>
+<?php ob_start(); ?>
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-
-
 
 <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 max-w-xl">
     <form action="<?php echo htmlspecialchars(BASE_PATH); ?>/user/hikesmngt/edit/save/<?php echo htmlspecialchars($hikes[0]["id"]); ?>/<?php echo htmlspecialchars($hikes[0]["created_by"]); ?>" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -31,10 +26,11 @@ var_dump($tagList);
         </p>
         <p class="mb-4">
             <label class="block text-gray-700 text-base font-bold mb-2" for="id_tags">Category:</label>
-            <select multiple name="id_tags" id="id_tags" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">    
+            <select multiple name="id_tags" id="id_tags" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 <?php
                 foreach ($tagList as $tag) {
-                    echo "<option value='{$tag['id']}'>{$tag['name']}</option>";
+                    $selected = ($tag['id'] == $hikes[0]['id_tags']) ? "selected" : "";
+                    echo "<option value='{$tag['id']}' $selected>{$tag['name']}</option>";
                 }
                 ?>
             </select>

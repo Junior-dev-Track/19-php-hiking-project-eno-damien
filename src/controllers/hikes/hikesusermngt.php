@@ -24,7 +24,9 @@ class Hikesusermngt
     {
         $databaseConnection = new DatabaseConnection($env);
         $newData = new Hickeslist($databaseConnection);
-
+        $tags = new TagsModel($databaseConnection);
+        
+        $tagList = $tags->getTags();
         $hikes = $newData->EditHikes($hikeid);
         require(__DIR__ . '/../../view/hikes/hikesusermngtedit.view.php');
 
@@ -37,6 +39,7 @@ class Hikesusermngt
     {
         $databaseConnection = new DatabaseConnection($env);
         $newData = new Hickeslist($databaseConnection);
+        
 
         $name = htmlspecialchars($input['name']);
         $distance = htmlspecialchars($input['distance']);
@@ -49,15 +52,16 @@ class Hikesusermngt
         $id_tag = htmlspecialchars($input['id_tags']);
 
         if ($action == 'edithike') {
+            
             $hikes = $newData->SaveHikes($hikeid, $name, $distance, $duration, $elevation_gain, $description, $updated_at, $id_tag);
         } elseif ($action == 'saveaddhike') {
-
             $created_by = htmlspecialchars($userid);
             $created_at = $date_update->format("Y-m-d H:i:s");
             $hikes = $newData->SaveAddHikes($name, $distance, $duration, $elevation_gain, $description, $created_by, $created_at, $updated_at, $id_tag);
         }
 
-        //header('Location: ' . BASE_PATH . '/user/hikesmngt/' . $userid);
+        echo "<script>window.location.href='" . BASE_PATH . "/user/hikesmngt/" . $userid . "'</script>";
+       
     }
     //elseif ($action=='deletehike') {
     //$hikes = $newData->DeleteHikes($hikeid);
