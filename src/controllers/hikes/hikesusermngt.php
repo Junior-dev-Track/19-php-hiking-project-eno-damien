@@ -4,19 +4,28 @@ namespace Application\Controllers\Hikes;
 
 require_once('src/model/hickeslist.php');
 require_once('src/model/tags.php');
+require_once('src/model/user.php');
 
 use Application\Lib\Database\DatabaseConnection;
 use Application\Model\Hickeslist\Hickeslist;
 use Application\Model\Tags as TagsModel;
+use Application\Model\User as UserModel;
+
 
 class Hikesusermngt
 {
     public function ListHikesUser($userid, $env)
     {
         $databaseConnection = new DatabaseConnection($env);
+       
         $newData = new Hickeslist($databaseConnection);
+        $hikes = $newData->getHikesListUser();
 
-        $hikes = $newData->getHikesListUser($userid);
+        //we check if the user connected is an admin, if yes, he will be able to edit and delete comments (see hikesdetails.view.php) condition || ($user_admin == "1")
+        $newData = new UserModel($databaseConnection);
+        $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : null;
+        $user_admin = $newData->getUserAdminStatus($user_id);
+        
         require(__DIR__ . '/../../view/hikes/hikesusermngt.view.php');
     }
 
@@ -40,7 +49,6 @@ class Hikesusermngt
         $databaseConnection = new DatabaseConnection($env);
         $newData = new Hickeslist($databaseConnection);
         
-
         $name = htmlspecialchars($input['name']);
         $distance = htmlspecialchars($input['distance']);
         $duration = htmlspecialchars($input['duration']);

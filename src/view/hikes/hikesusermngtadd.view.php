@@ -10,27 +10,27 @@ $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : 
         <p class="block text-gray-700 text-2xl font-bold mb-2">Add a Hike:</p>
         <p class="mb-4">
             <label class="block text-gray-700 text-base font-bold mb-2" for="name">Name:</label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="name" id="name">
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="name" id="name" required>
         </p>
         <p class="mb-4">
             <label class="block text-gray-700 text-base font-bold mb-2" for="distance">Distance:</label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="distance" id="distance">
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="distance" id="distance" required>
         </p>
         <p class="mb-4">
             <label class="block text-gray-700 text-base font-bold mb-2" for="duration">Duration:</label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="duration" id="duration">
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="duration" id="duration" required>
         </p>
         <p class="mb-4">
             <label class="block text-gray-700 text-base font-bold mb-2" for="elevation_gain">Elevation gain:</label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="elevation_gain" id="elevation_gain">
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="elevation_gain" id="elevation_gain" required>
         </p>
         <p class="mb-4">
             <label class="block text-gray-700 text-base font-bold mb-2" for="description">Description:</label>
-            <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" rows="10" name="description" id="description"><?php echo htmlspecialchars($hikes[0]['description'] ?? ''); ?></textarea>
+            <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" rows="10" name="description" id="description" required><?php echo htmlspecialchars($hikes[0]['description'] ?? ''); ?></textarea>
         </p>
         <p class="mb-4">
             <label class="block text-gray-700 text-base font-bold mb-2" for="id_tags">Category:</label>
-            <select multiple name="id_tags" id="id_tags" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <select multiple name="id_tags" id="id_tags" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                 <?php
                 foreach ($tagList as $tag) {
                     echo "<option value='{$tag['id']}'>{$tag['name']}</option>";

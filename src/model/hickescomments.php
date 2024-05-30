@@ -61,4 +61,16 @@ class HikesComments
         $result = $statement->execute();
         return $result;
     }
+
+    //delete all comments when a user delete his profil
+    public function delAllCommentHicke($userid)
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            "DELETE FROM hikescomments WHERE id_user = :id_user"
+        );
+        $statement->bindParam(':id_user', $userid, PDO::PARAM_INT);
+        $result = $statement->execute();
+        return $result;
+    }
+
 }

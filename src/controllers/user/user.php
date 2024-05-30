@@ -4,11 +4,13 @@ namespace Application\Controllers\User;
 
 require_once('src/lib/database.php');
 require_once('src/model/user.php');
+require_once('src/model/hickescomments.php');
 require 'vendor/autoload.php';
 
 use Application\Lib\Database\DatabaseConnection;
 use Application\Model\User as UserModel;
 use Application\Model\Login as UserLogin;
+use Application\Model\HikesComments as HikesCommentsModel;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -83,6 +85,7 @@ class User
                         $newData->addUser($nickname, $email, $password_crypt, $user_admin);
                         //Autologin after subscription
                         $id = $databaseConnection->getConnection()->lastInsertId();
+
                         $_SESSION['user'] = [
                             'sess_id' => $id,
                             'sess_user' => $nickname
@@ -131,32 +134,45 @@ class User
 
         $user_infos = $newData->getUserInfos($userid);
 
+        //we check if the user connected is an admin, if yes, he will be able to edit and delete comments (see hikesdetails.view.php) condition || ($user_admin == "1")
+        $newData = new UserModel($databaseConnection);
+        $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : null;
+        $user_admin = $newData->getUserAdminStatus($user_id);
+
         require(__DIR__ . '/../../view/user/showprofil.view.php');
     }
 
     public function SaveProfil($userid, $input, $env, $action)
     {
+        $databaseConnection = new DatabaseConnection($env);
+        $newData = new UserModel($databaseConnection);
+
+        if ($action == 'deleteprofil') {
+            $newData->DeleteUser($userid);
+
+            //we delete all comments of the user (model hikescomments.php)
+            $newData = new HikesCommentsModel($databaseConnection);
+            $newData->delAllCommentHicke($userid);
+
+            session_destroy();
+            echo "<script>window.location.href='" . BASE_PATH . "'</script>";
+            exit();
+        }
+
         $firstname = htmlspecialchars($input['firstname']);
         $lastname = htmlspecialchars($input['lastname']);
         $nickname = htmlspecialchars($input['nickname']);
         $email = filter_var($input['email'], FILTER_SANITIZE_EMAIL);
 
-        $databaseConnection = new DatabaseConnection($env);
+        //we check if the user connected is an admin, if yes, he will be able to edit and delete comments (see hikesdetails.view.php) condition || ($user_admin == "1")
         $newData = new UserModel($databaseConnection);
+        $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : null;
+        $user_admin = $newData->getUserAdminStatus($user_id);
 
         $newData->SaveUserInfos($userid, $firstname, $lastname, $nickname, $email);
 
         if ($action == 'saveprofil') {
             $user_infos = $newData->getUserInfos($userid);
-        }
-
-        if ($action == 'deleteprofil') {
-            $newData->DeleteUser($userid);
-
-            session_start();
-            session_destroy();
-            header('Location: ' . BASE_PATH);
-            exit();
         }
         require(__DIR__ . '/../../view/user/showprofil.view.php');
     }

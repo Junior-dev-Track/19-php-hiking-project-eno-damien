@@ -42,7 +42,7 @@ class HikesComments
         //Check if comment exists and if the user is the author of the comment, if not, redirect to Page not found
         $comment = $newData->getCommentHicke($commentid);
         
-        $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : null;
+        //$user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : null;
         //if (!$comment || $comment['id_user'] != $user_id) {
             //header('Location: ' . BASE_PATH . '/hikes/' . $hikeid);
             //exit();

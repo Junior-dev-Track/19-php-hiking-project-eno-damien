@@ -5,6 +5,7 @@ namespace Application\Lib\Database;
 class DatabaseConnection
 {
     private $env; // Store environment variables as a class property
+    private $pdo;
 
     public function __construct(array $env)
     { // Pass environment variables through the constructor
@@ -21,5 +22,10 @@ class DatabaseConnection
         }
 
         return $this->database;
+    }
+
+    public function lastInsertId()
+    {
+        return $this->pdo->lastInsertId();
     }
 }
