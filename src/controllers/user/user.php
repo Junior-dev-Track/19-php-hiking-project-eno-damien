@@ -4,11 +4,14 @@ namespace Application\Controllers\User;
 
 require_once('src/lib/database.php');
 require_once('src/model/user.php');
+require 'vendor/autoload.php';
 
 use Application\Lib\Database\DatabaseConnection;
 use Application\Model\User as UserModel;
 use Application\Model\Login as UserLogin;
 use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
 class User
 {
@@ -82,30 +85,35 @@ class User
                         $id = $databaseConnection->getConnection()->lastInsertId();
                         $_SESSION['user'] = [
                             'sess_id' => $id,
-                            'sess_user' => $nickname,
-                            'sess_admin' => $user_admin
+                            'sess_user' => $nickname
                         ];
 
-                        // After the user is successfully registered and logged in, send the email
-                        $phpmailer = new PHPMailer();
-                        $phpmailer->isSMTP();
-                        $phpmailer->Host = 'smtp.mailtrap.io';
-                        $phpmailer->SMTPAuth = true;
-                        $phpmailer->Port = 587;
-                        $phpmailer->Username = 'your_mailtrap_username';
-                        $phpmailer->Password = 'your_mailtrap_password';
+                        $mail = new PHPMailer(true);
 
-                        $phpmailer->setFrom('mailtrap@example.com', 'Mailtrap');
-                        $phpmailer->addAddress($email); // Add a recipient
-                        $phpmailer->isHTML(true); // Set email format to HTML
-                        $phpmailer->Subject = 'Welcome to our website!';
-                        $phpmailer->Body    = 'Thank you for registering. We hope you enjoy using our website!';
+                        try {
+                            //Server settings
+                            $mail->isSMTP();                                            //Send using SMTP
+                            $mail->Host       = 'live.smtp.mailtrap.io';                      //Set the SMTP server to send through
+                            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                            $mail->Username   = 'api';                               //SMTP username
+                            $mail->Password   = 'd9cd774fa76ca46bec6b3241cccab631'; //SMTP password
+                            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable explicit TLS encryption
+                            $mail->Port       = 587;                                    //TCP port to connect to
 
-                        if (!$phpmailer->send()) {
-                            echo 'Message could not be sent.';
-                            echo 'Mailer Error: ' . $phpmailer->ErrorInfo;
-                        } else {
+                            //Recipients
+                            $mail->setFrom('live.smtp.mailtrap.io', 'Eno&Damien');
+                            $mail->addAddress($email);                                  //Add a recipient
+
+                            //Content
+                            $mail->isHTML(true);                                        //Set email format to HTML
+                            $mail->Subject = 'Welcome to our website!';
+                            $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+                            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+                            $mail->send();
                             echo 'Message has been sent';
+                        } catch (Exception $e) {
+                            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
                         }
                     }
                 }
