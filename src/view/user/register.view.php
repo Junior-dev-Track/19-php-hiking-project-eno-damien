@@ -15,7 +15,7 @@ $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : 
                 <p class="text-center text-red-500"><?php echo htmlspecialchars($error) ?></p>
                 <p class="text-center">Redirection in <span id="countdownRegister">3</span> seconds</p>
             <?php } else { ?>
-                <p class="text-center text-green-500">Your registration is successful.</p>
+                <p class="text-center text-white">Your registration is successful.</p>
                 <p class="text-center">Redirection in <span id="countdownIndex">3</span> seconds</p>
             <?php } ?>
             <script>

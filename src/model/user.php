@@ -94,11 +94,7 @@ class User
         $statement->bindParam(':nickname', $nickname, PDO::PARAM_STR);
         $statement->bindParam(':email', $email, PDO::PARAM_STR);
         $result = $statement->execute();
-        if ($result) {
-            return "Profile edited successfully.";
-        } else {
-            return "Failed to edit hike.";
-        }
+        return $result;
     }
 
     public function DeleteUser($userid)
@@ -106,11 +102,7 @@ class User
         $statement = $this->connection->getConnection()->prepare("DELETE from users WHERE id = :userid");
         $statement->bindParam(':userid', $userid, PDO::PARAM_INT);
         $result = $statement->execute();
-        if ($result) {
-            return "Profile deleted successfully.";
-        } else {
-            return "Failed to edit hike.";
-        }
+        return $result;
     }
 
     public function getUserAdminStatus($user_id)

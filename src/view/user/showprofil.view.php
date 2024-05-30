@@ -1,4 +1,4 @@
-<?php 
+<?php
 $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : null;
 ob_start(); ?>
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -28,6 +28,10 @@ ob_start(); ?>
       </div>
     </form>
   <?php } elseif (($action == "saveprofil") || isset($action)) { ?>
+    <?php if (isset($successMessage)) : ?>
+      <p class="block text-gray-600 text-2xl font-bold mb-2 text-center"><?php echo htmlspecialchars($successMessage); ?></p>
+    <?php endif; ?>
+
     <form action="<?php echo htmlspecialchars(BASE_PATH); ?>/user/showprofil/<?php echo htmlspecialchars($user_infos[0]["id"]); ?>" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-xl mx-auto">
       <div class="mb-4">
         <label class="block text-gray-700 text-2xl font-bold mb-2" for="firstname">First Name</label>

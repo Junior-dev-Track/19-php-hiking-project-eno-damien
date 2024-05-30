@@ -83,6 +83,10 @@ class User
                         $newData->addUser($nickname, $email, $password_crypt, $user_admin);
                         //Autologin after subscription
                         $id = $databaseConnection->getConnection()->lastInsertId();
+                        $_SESSION['user'] = [
+                            'sess_id' => $id,
+                            'sess_user' => $nickname
+                        ];
 
                         // Send email after successful registration
                         $phpmailer = new PHPMailer();
@@ -120,28 +124,30 @@ class User
 
     public function SaveProfil($userid, $input, $env, $action)
     {
+        $databaseConnection = new DatabaseConnection($env);
+        $newData = new UserModel($databaseConnection);
+
+        if ($action == 'deleteprofil') {
+            $newData->DeleteUser($userid);
+            
+            session_destroy();
+            echo "<script>window.location.href='" . BASE_PATH . "'</script>";
+            exit();
+        }
+
         $firstname = htmlspecialchars($input['firstname']);
         $lastname = htmlspecialchars($input['lastname']);
         $nickname = htmlspecialchars($input['nickname']);
         $email = filter_var($input['email'], FILTER_SANITIZE_EMAIL);
 
-        $databaseConnection = new DatabaseConnection($env);
-        $newData = new UserModel($databaseConnection);
-
         $newData->SaveUserInfos($userid, $firstname, $lastname, $nickname, $email);
 
         if ($action == 'saveprofil') {
             $user_infos = $newData->getUserInfos($userid);
+            $successMessage = "Profile edited successfully.";
         }
 
-        if ($action == 'deleteprofil') {
-            $newData->DeleteUser($userid);
-
-            session_start();
-            session_destroy();
-            header('Location: ' . BASE_PATH);
-            exit();
-        }
+       
         require(__DIR__ . '/../../view/user/showprofil.view.php');
     }
 }
