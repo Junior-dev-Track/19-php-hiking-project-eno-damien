@@ -142,6 +142,10 @@ $router->map('POST', '/user/hikesmngt/add/save/[i:userid]', function ($userid) u
     (new Hikesusermngt())->SaveHikesUser('', $env, $_POST, $userid, 'saveaddhike');
 });
 
+$router->map('GET', '/user/hikesmngt/delete/[i:hikeid]', function ($hikeid) use ($env) {
+    (new HikesDetails())->DeleteHike($hikeid, $env);
+});
+
 //Route matching
 $match = $router->match();
 

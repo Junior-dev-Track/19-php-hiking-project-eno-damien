@@ -149,4 +149,14 @@ class Hickeslist
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    public function deleteHike($hikesId)
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            "DELETE FROM Hikes WHERE id = :id"
+        );
+        $statement->bindParam(':id', $hikesId, PDO::PARAM_INT);
+        $result = $statement->execute();
+        return $result;
+    }
 }
