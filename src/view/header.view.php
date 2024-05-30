@@ -16,20 +16,22 @@ $user_admin = isset($_SESSION['user']['sess_admin']) ? $_SESSION['user']['sess_a
             <img class="h-8 rounded-full" src="<?php echo BASE_PATH; ?>/public/images/logo.jpg" alt="Your Logo">
         </a>
         <!-- DROP DOWN MENU FOR TAGS -->
-        <div class="relative inline-block text-left" x-data="{ open: false }">
-            <button @click="open = !open" type="button" class="text-gray-50 text-lg" id="options-menu" aria-haspopup="true" aria-expanded="true">
-                <i class="fas fa-leaf"></i>
-                <span>Category</span>
-            </button>
-            <div x-show="open" class="absolute mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                    <a href="<?php echo BASE_PATH; ?>/" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">All</a>
-                    <?php foreach ($tagList as $tag) { ?>
-                        <a href="<?php echo BASE_PATH; ?>/category/<?php echo $tag['id']; ?>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"><?php echo $tag['name']; ?></a>
-                    <?php } ?>
+        <?php if (!empty($user_identifiant)) : ?>
+            <div class="relative inline-block text-left" x-data="{ open: false }">
+                <button @click="open = !open" type="button" class="text-gray-50 text-lg" id="options-menu" aria-haspopup="true" aria-expanded="true">
+                    <i class="fas fa-leaf"></i>
+                    <span>Category</span>
+                </button>
+                <div x-show="open" class="absolute mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                    <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                        <a href="<?php echo BASE_PATH; ?>/" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">All</a>
+                        <?php foreach ($tagList as $tag) { ?>
+                            <a href="<?php echo BASE_PATH; ?>/category/<?php echo $tag['id']; ?>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"><?php echo $tag['name']; ?></a>
+                        <?php } ?>
+                    </div>
                 </div>
             </div>
-        </div>
+        <?php endif; ?>
         <div class="flex items-center md:order-2 space-x-3">
             <?php if (empty($user_identifiant)) { ?>
 
