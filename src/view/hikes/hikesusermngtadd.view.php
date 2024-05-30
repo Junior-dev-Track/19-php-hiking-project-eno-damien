@@ -30,7 +30,14 @@ $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : 
         </p>
         <p class="mb-4">
             <label class="block text-gray-700 text-base font-bold mb-2" for="id_tags">Category:</label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="id_tags" id="id_tags" value="<?php echo htmlspecialchars($hikes[0]['id_tags'] ?? ''); ?>">
+            <select multiple name="id_tags" id="id_tags" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <?php
+                foreach ($tagList as $tag) {
+                    echo "<option value='{$tag['id']}'>{$tag['name']}</option>";
+                }
+                ?>
+            </select>
+
         </p>
         <input class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" value="Save modification">
     </form>

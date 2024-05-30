@@ -31,7 +31,7 @@ var_dump($tagList);
         </p>
         <p class="mb-4">
             <label class="block text-gray-700 text-base font-bold mb-2" for="id_tags">Category:</label>
-            <select multiple name="id_tags" id="id_tags" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <select multiple name="id_tags" id="id_tags" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">    
                 <?php
                 foreach ($tagList as $tag) {
                     echo "<option value='{$tag['id']}'>{$tag['name']}</option>";
@@ -42,7 +42,6 @@ var_dump($tagList);
         <input class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" value="Save modification">
     </form>
 </div>
-
 
 <?php
 $contentBody = ob_get_clean();

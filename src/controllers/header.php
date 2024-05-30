@@ -27,9 +27,6 @@ class Header
 
     public function execute($env)
     {
-        $error_com = '';
-        $success_com = '';
-
         $databaseConnection = new DatabaseConnection($env);
         //we set the databaseConnection for the __construct method
         $tags = new TagsModel($databaseConnection);

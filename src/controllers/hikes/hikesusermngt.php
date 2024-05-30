@@ -31,8 +31,6 @@ class Hikesusermngt
         //elseif ($action=='deletehike') {
         //$hikes = $newData->DeleteHikes($hikeid);
         //}
-
-
     }
 
     public function SaveHikesUser($hikeid, $env, $input, $userid, $action)
