@@ -27,7 +27,7 @@ class User
     {
         return $this->connection->getConnection();
     }
-    
+
     public function isValidEmail($email)
     {
         return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
@@ -36,21 +36,21 @@ class User
     //check if email is already ind db
     public function checkDuplicateMail($email)
     {
-    $statement = $this->connection->getConnection()->prepare("SELECT COUNT(*) from users WHERE email = :email");
-    $statement->bindParam(':email', $email, PDO::PARAM_STR);
-    $statement->execute();
-    $result = $statement->fetchColumn();
-    return $result;
+        $statement = $this->connection->getConnection()->prepare("SELECT COUNT(*) from users WHERE email = :email");
+        $statement->bindParam(':email', $email, PDO::PARAM_STR);
+        $statement->execute();
+        $result = $statement->fetchColumn();
+        return $result;
     }
 
     //check if nickname is already ind db
     public function checkDuplicateUser($nickname)
     {
-    $statement = $this->connection->getConnection()->prepare("SELECT COUNT(*) from users WHERE nickname = :nickname");
-    $statement->bindParam(':nickname', $nickname, PDO::PARAM_STR);
-    $statement->execute();
-    $result = $statement->fetchColumn();
-    return $result;
+        $statement = $this->connection->getConnection()->prepare("SELECT COUNT(*) from users WHERE nickname = :nickname");
+        $statement->bindParam(':nickname', $nickname, PDO::PARAM_STR);
+        $statement->execute();
+        $result = $statement->fetchColumn();
+        return $result;
     }
 
     public function firstUser()
@@ -87,7 +87,7 @@ class User
     {
         $statement = $this->connection->getConnection()->prepare(
             "UPDATE users SET firstname = :firstname, lastname = :lastname, nickname = :nickname, email = :email WHERE id = :userid"
-        );  
+        );
         $statement->bindParam(':userid', $userid, PDO::PARAM_INT);
         $statement->bindParam(':firstname', $firstname, PDO::PARAM_STR);
         $statement->bindParam(':lastname', $lastname, PDO::PARAM_STR);
@@ -103,6 +103,14 @@ class User
         $statement->bindParam(':userid', $userid, PDO::PARAM_INT);
         $result = $statement->execute();
         return $result;
-    }   
-}
+    }
 
+    public function getUserAdminStatus($user_id)
+    {
+        $statement = $this->connection->getConnection()->prepare("SELECT user_admin FROM users WHERE id = :user_id");
+        $statement->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $statement->execute();
+        $result = $statement->fetchColumn();
+        return $result;
+    }
+}

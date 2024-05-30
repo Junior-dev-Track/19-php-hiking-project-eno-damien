@@ -55,7 +55,7 @@ var_dump($hikesComments_array);
                                     <?php // The user can delete his own comments
                                     //If the user own the comment or if he is an admin, he can edit
                                     //if (($user_id) == $hcomment['id_user'] || $user_admin == "1") { 
-                                        if (($user_id == $hcomment['id_user']) || $hcomment['is_admin']) { ?>
+                                        if (($user_id == $hcomment['id_user']) || ($user_admin == "1")) { ?>
                                         <div class="mt-2 flex justify-end">
                                             <!-- Keep the code and id to be able to return to the page product after action -->
                                             <a href='<?php echo htmlspecialchars(BASE_PATH); ?>/hikes/editcom/<?= $hike['id']; ?>/<?= $hcomment['id'] ?>' class="mx-2">

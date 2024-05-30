@@ -58,27 +58,21 @@ class Hickeslist
     }
 
     public function getHikesComments($hickesid)
-{
-    $commentdb = $this->connection->getConnection()->prepare(
-        "SELECT hc.id, hc.hikes_comments, hc.id_user, hc.posted_at, u.nickname, u.user_admin
-        FROM hikescomments hc
-        INNER JOIN users u
-        ON hc.id_user = u.id
-        WHERE hc.id_hikes = :id_hikes
-        ORDER BY hc.id"
-    );
-    $commentdb->bindParam(":id_hikes", $hickesid, PDO::PARAM_INT);
-    $commentdb->execute();
-    $result = $commentdb->fetchAll(PDO::FETCH_ASSOC);
-
-    // Ajoutez une nouvelle clé dans chaque commentaire pour indiquer si l'utilisateur est un administrateur global
-    foreach ($result as &$comment) {
-        $comment['is_admin'] = ($comment['user_admin'] == '1');
+    {
+        $commentdb = $this->connection->getConnection()->prepare(
+            "SELECT hc.id, hc.hikes_comments, hc.id_user, hc.posted_at, u.nickname, u.user_admin
+            FROM hikescomments hc
+            INNER JOIN users u
+            ON hc.id_user = u.id
+            WHERE hc.id_hikes = :id_hikes
+            ORDER BY hc.id"
+        );
+        $commentdb->bindParam(":id_hikes", $hickesid, PDO::PARAM_INT);
+        $commentdb->execute();
+        $result = $commentdb->fetchAll(PDO::FETCH_ASSOC);
+        
+        return $result;
     }
-
-    return $result;
-}
-
 
     public function getHikesListUser($userid)
     {
