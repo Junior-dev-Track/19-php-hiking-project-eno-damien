@@ -7,7 +7,7 @@
                     <h1 class="text-gray-900 font-bold text-3xl mb-2">Edit your comment</h1>
                     <!-- Comment form -->
                     <form action="<?php echo htmlspecialchars(BASE_PATH); ?>/hikes/editcom/<?php echo htmlspecialchars($hikesComments['id_hikes']); ?>/<?php echo htmlspecialchars($hikesComments['id']); ?>" method="post">
-                        <textarea style="border:1px solid black" rows="5" cols="50" name="hikesComment" id="hikesComment" class="w-full p-2 mb-4"><?php echo htmlspecialchars($hikesComments['hikes_comments']); ?></textarea>
+                        <textarea style="border:1px solid black" rows="5" cols="50" name="hikesComment" id="hikesComment" class="w-full p-2 mb-4" required><?php echo htmlspecialchars($hikesComments['hikes_comments']); ?></textarea>
                         <input type="submit" value="Edit your comment" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
                     </form>
                 <?php } else { ?>
