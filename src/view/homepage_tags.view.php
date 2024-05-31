@@ -19,7 +19,7 @@
             // Get the category of the hike.
             $category = $hike["category"];
             // Generate a random number between 1 and 4.
-            $randomNumber = rand(1, 4);
+            $randomNumber = rand(1, 8);
             // Construct the path to the random image.
             $imagePath = BASE_PATH . "/public/images/{$category}/{$randomNumber}.jpg";
             ?>

@@ -86,6 +86,23 @@ class User
                             'sess_user' => $nickname
                         ];
 
+                        //Send email after successful registration
+                        // $phpmailer = new PHPMailer(true);
+                        // $phpmailer->SMTPDebug = 2;
+                        // $phpmailer->isSMTP();
+                        // $phpmailer->Host = 'smtp.enkelan.tech';
+                        // $phpmailer->SMTPAuth = true;
+                        // $phpmailer->Port = 587;
+                        // $phpmailer->Username = 'api';
+                        // $phpmailer->Password = 'YMYdG$R9';
+                        // $phpmailer->setFrom('eno@enkelan.tech', 'Mailer');
+                        // $phpmailer->addAddress($email, $nickname);     // Add a recipient
+                        // $phpmailer->isHTML(true);                      // Set email format to HTML
+                        // $phpmailer->Subject = 'Welcome to our website!';
+                        // $phpmailer->Body    = 'This is the HTML message body <b>in bold!</b>';
+                        // $phpmailer->AltBody = 'This is the body in plain text for non-HTML mail clients';
+                        // $phpmailer->send();
+
                         // Send email after successful registration
                         $phpmailer = new PHPMailer(true);
                         $phpmailer->SMTPDebug = 0;
@@ -150,10 +167,11 @@ class User
         $lastname = htmlspecialchars($input['lastname']);
         $nickname = htmlspecialchars($input['nickname']);
         $email = filter_var($input['email'], FILTER_SANITIZE_EMAIL);
+        $radio_UserAdmin = htmlspecialchars($input['user_admin']);
 
         $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : null;
         $user_admin = $newData->getUserAdminStatus($user_id);
-        $newData->SaveUserInfos($userid, $firstname, $lastname, $nickname, $email);
+        $newData->SaveUserInfos($userid, $firstname, $lastname, $nickname, $email, $radio_UserAdmin);
 
         if ($action == 'saveprofil') {
             $user_infos = $newData->getUserInfos($userid);

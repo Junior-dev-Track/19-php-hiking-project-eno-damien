@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         .nav-link {
@@ -38,6 +38,8 @@ error_reporting(E_ALL);
 define('BASE_PATH', '/19-php-hiking-project-eno-damien');
 
 require_once __DIR__ . '/vendor/autoload.php';
+require_once('src/controllers/Header.php');
+
 
 $envFilePath = '.env';
 $env = parse_ini_file($envFilePath);

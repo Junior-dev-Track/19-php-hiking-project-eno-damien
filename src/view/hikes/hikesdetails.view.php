@@ -20,21 +20,21 @@ $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : 
     }
 </style>
 <div class="min-h-screen bg-gray-900 flex flex-col  relative px-4">
-    <?php
-    // Get the category of the hike.
-    $category = $hike["category"];
-    // Generate a random number between 1 and 4.
-    $randomNumber = rand(1, 4);
-    // Construct the path to the random image.
-    $imagePath = BASE_PATH . "/public/images/{$category}/{$randomNumber}.jpg";
-    ?>
     <div class="absolute top-0 left-0 w-full h-full bg-cover bg-center" style="background-image: url('<?php echo BASE_PATH; ?>/public/images/background1.jpg');">
     </div>
 
     <div class="bg-gray-900 opacity-100">
         <div class="max-w-screen-xl mx-auto pt-5 sm:pt-10 md:pt-16 relative">
             <!-- Display the main image -->
-            <div class="bg-cover bg-center text-center overflow-hidden" style="min-height: 500px; background-image: url('<?php echo BASE_PATH; ?>/public/images/<?php echo htmlspecialchars($hike["id"] ?? 'default'); ?>.jpg')" title="<?= htmlspecialchars($hike['name']); ?>">
+            <?php
+            // Get the category of the hike.
+            $category = $hike["category"];
+            // Generate a random number between 1 and 4.
+            $randomNumber = rand(1, 8);
+            // Construct the path to the random image.
+            $imagePath = BASE_PATH . "/public/images/{$category}/{$randomNumber}.jpg";
+            ?>
+            <div class="bg-cover bg-center text-center overflow-hidden" style="min-height: 500px; background-image: url('<?= $imagePath ?>">
             </div>
             <div class="max-w-3xl mx-auto">
                 <div class="mt-3 bg-white rounded-b lg:rounded-b-none lg:rounded-r flex flex-col justify-between leading-normal relative selected-div">
