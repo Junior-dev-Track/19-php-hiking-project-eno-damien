@@ -7,8 +7,10 @@ require_once('src/model/user.php');
 require_once('src/model/login.php');
 require_once('src/model/hickescomments.php');
 
+
 use Application\Model\User as UserModel;
 use Application\Model\Login as UserLogin;
+use Application\Model\HikesComments as HikesCommentsModel;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -138,6 +140,9 @@ class User
 
         if ($action == 'deleteprofil') {
             $newData->DeleteUser($userid);
+
+            $newData = new HikesCommentsModel($env);
+            $newData->DelAllCommentHicke($userid);
 
             session_destroy();
             echo "<script>window.location.href='" . BASE_PATH . "'</script>";

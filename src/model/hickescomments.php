@@ -61,7 +61,7 @@ class HikesComments Extends DatabaseConnection
     }
 
     //delete all comments when a user delete his profil
-    public function delAllCommentHicke($userid)
+    public function DelAllCommentHicke($userid)
     {
         $statement = $this->getConnection()->prepare(
             "DELETE FROM hikescomments WHERE id_user = :id_user"
