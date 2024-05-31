@@ -30,7 +30,7 @@ $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : 
         </p>
         <p class="mb-4">
             <label class="block text-gray-700 text-base font-bold mb-2" for="id_tags">Category:</label>
-            <select multiple name="id_tags" id="id_tags" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            <select name="id_tags" id="id_tags" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                 <?php
                 foreach ($tagList as $tag) {
                     echo "<option value='{$tag['id']}'>{$tag['name']}</option>";

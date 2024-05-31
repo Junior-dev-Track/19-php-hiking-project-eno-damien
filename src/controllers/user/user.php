@@ -19,37 +19,36 @@ use PDO;
 class User
 {
     public function login($env)
-    { {
-            $error = '';
-            if (isset($_POST['email'], $_POST['password'])) {
-                $email = htmlspecialchars($_POST['email']);
-                $password = htmlspecialchars($_POST['password']);
-                $password_crypt = password_hash($password, PASSWORD_DEFAULT);
+    {
+        $error = '';
+        if (isset($_POST['email'], $_POST['password'])) {
+            $email = htmlspecialchars($_POST['email']);
+            $password = htmlspecialchars($_POST['password']);
+            $password_crypt = password_hash($password, PASSWORD_DEFAULT);
 
-                $newData = new UserLogin($env);
+            $newData = new UserLogin($env);
 
-                $result = $newData->existEmail($email);
-                if ($result && password_verify($password, $result['password'])) {
+            $result = $newData->existEmail($email);
+            if ($result && password_verify($password, $result['password'])) {
 
-                    // Regenerate session ID to mitigate session fixation attacks
-                    session_regenerate_id(true);
+                // Regenerate session ID to mitigate session fixation attacks
+                session_regenerate_id(true);
 
-                    // store data of user in $_SESSION
-                    $_SESSION['user'] = [
-                        'sess_id' => $result['id'],
-                        'sess_user' => $result['nickname']
-                    ];
+                // store data of user in $_SESSION
+                $_SESSION['user'] = [
+                    'sess_id' => $result['id'],
+                    'sess_user' => $result['nickname']
+                ];
 
-                    $success_login = "Login Successfull.";
-                    $success_welcome = "Welcome " . htmlspecialchars($result['nickname']);
-                } else {
-                    $error = "Invalid email or password. Retry.";
-                }
+                $success_login = "Login Successfull.";
+                $success_welcome = "Welcome " . htmlspecialchars($result['nickname']);
             } else {
-                $error = "No data received";
+                $error = "Invalid email or password. Retry.";
             }
-            require(__DIR__ . '/../../view/user/login.view.php');
+        } else {
+            $error = "No data received";
         }
+        require(__DIR__ . '/../../view/user/login.view.php');
     }
 
     public function register($env)

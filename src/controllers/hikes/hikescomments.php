@@ -15,7 +15,6 @@ class HikesComments
 
         if (empty($input['hikesComment'])) {
             $error_com = 'Error. Please retry.';
-            //header('Location: ' . BASE_PATH . '/hikes/' . $hikeid);
             
         } elseif (!empty($input)) {
             $hikescomments = htmlspecialchars($input['hikesComment']);
