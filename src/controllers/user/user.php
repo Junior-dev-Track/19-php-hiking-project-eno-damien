@@ -4,15 +4,14 @@ namespace Application\Controllers\User;
 
 require_once('src/lib/database.php');
 require_once('src/model/user.php');
+require_once('src/model/login.php');
 require_once('src/model/hickescomments.php');
-
 
 use Application\Model\User as UserModel;
 use Application\Model\Login as UserLogin;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
 
 use PDO;
 
