@@ -8,9 +8,9 @@ require_once('src/model/hickescomments.php');
 
 use Application\Model\User as UserModel;
 use Application\Model\Login as UserLogin;
-// use PHPMailer\PHPMailer\SMTP;
-// use PHPMailer\PHPMailer\PHPMailer;
-// use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 
 use PDO;
@@ -80,28 +80,39 @@ class User
                         $user_admin = ($userCount == 0) ? 1 : 0;
                         $id = $newData->addUser($nickname, $email, $password_crypt, $user_admin);
                         //Autologin after subscription
-                        
+
                         $_SESSION['user'] = [
                             'sess_id' => $id,
                             'sess_user' => $nickname
                         ];
-                       
-                        //Send email after successful registration
-                        // $phpmailer = new PHPMailer(true);
-                        // $phpmailer->SMTPDebug = 2;
-                        // $phpmailer->isSMTP();
-                        // $phpmailer->Host = 'smtp.enkelan.tech';
-                        // $phpmailer->SMTPAuth = true;
-                        // $phpmailer->Port = 587;
-                        // $phpmailer->Username = 'api';
-                        // $phpmailer->Password = 'YMYdG$R9';
-                        // $phpmailer->setFrom('eno@enkelan.tech', 'Mailer');
-                        // $phpmailer->addAddress($email, $nickname);     // Add a recipient
-                        // $phpmailer->isHTML(true);                      // Set email format to HTML
-                        // $phpmailer->Subject = 'Welcome to our website!';
-                        // $phpmailer->Body    = 'This is the HTML message body <b>in bold!</b>';
-                        // $phpmailer->AltBody = 'This is the body in plain text for non-HTML mail clients';
-                        // $phpmailer->send();
+
+                        // Send email after successful registration
+                        $phpmailer = new PHPMailer(true);
+                        $phpmailer->SMTPDebug = 0;
+                        $phpmailer->isSMTP();
+                        $phpmailer->Host = 'smtp-pulse.com'; // Replace with your SMTP server
+                        $phpmailer->SMTPAuth = true;
+                        $phpmailer->Port = 587; // Replace with your port
+                        $phpmailer->Username = 'dyvinitygamer@gmail.com'; // Replace with your login
+                        $phpmailer->Password = 'WB33ZMJirk6'; // Replace with your password
+                        $phpmailer->setFrom('eno@enkelan.tech', 'Eno&Damien Domain'); // Replace with your email and name
+                        $phpmailer->addAddress($email, $nickname);     // Add a recipient
+                        $phpmailer->isHTML(true);                      // Set email format to HTML
+                        $phpmailer->Subject = 'Welcome to our website!';
+                        $phpmailer->Body = '
+<div style="background-color: #edf2f7; padding: 20px;">
+    <div style="max-width: 600px; margin: auto; background-color: #fff; padding: 20px; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);">
+        <h2 style="color: #2d3748; margin-bottom: 20px;">Welcome to our website!</h2>
+        <p style="color: #4a5568; line-height: 1.6;">Dear ' . $nickname . ',</p>
+        <p style="color: #4a5568; line-height: 1.6;">Thank you for registering on our website. We are excited to have you on board.</p>
+        <p style="color: #4a5568; line-height: 1.6;">If you have any questions, feel free to reply to this email. We\'re here to help!</p>
+        <p style="color: #4a5568; line-height: 1.6;">Best regards,</p>
+        <p style="color: #4a5568; line-height: 1.6;"><b>Eno&Damien</b></p>
+    </div>
+</div>
+';
+                        $phpmailer->AltBody = 'Welcome to our website! Dear ' . $nickname . ', Thank you for registering on our website. We are excited to have you on board. If you have any questions, feel free to reply to this email. We\'re here to help! Best regards, Your Team';
+                        $phpmailer->send();
                     }
                 }
             }
@@ -129,7 +140,7 @@ class User
 
         if ($action == 'deleteprofil') {
             $newData->DeleteUser($userid);
-            
+
             session_destroy();
             echo "<script>window.location.href='" . BASE_PATH . "'</script>";
             exit();
@@ -149,7 +160,7 @@ class User
             $successMessage = "Profile edited successfully.";
         }
 
-       
+
         require(__DIR__ . '/../../view/user/showprofil.view.php');
     }
 }
