@@ -31,11 +31,13 @@ class Hickeslist extends DatabaseConnection
     public function getHikesDetails($hikesId)
     {
         $statement = $this->getConnection()->prepare(
-            "SELECT h.id, h.name, h.distance, h.duration, h.elevation_gain, h.description, h.created_by, h.created_at, h.updated_at, u.nickname, u.user_admin
+            "SELECT h.id, h.name, h.distance, h.duration, h.elevation_gain, h.description, h.created_by, h.created_at, h.updated_at, u.nickname, u.user_admin, t.name as tagname
             FROM Hikes h
             INNER JOIN users u
             ON h.created_by = u.id
-            WHERE h.id = :id"
+            INNER JOIN tags t
+            ON h.id_tags = t.ID
+            WHERE h.id = :id AND h.id_tags = t.ID"
         );
         $statement->bindParam(':id', $hikesId, PDO::PARAM_INT);
         $statement->execute();

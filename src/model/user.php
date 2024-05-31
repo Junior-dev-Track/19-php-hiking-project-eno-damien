@@ -82,6 +82,16 @@ class User extends DatabaseConnection
         return $result;
     }
 
+    public function getAllUserInfos()
+    {
+        $statement = $this->getConnection()->prepare("SELECT id, firstname, lastname, nickname, email, user_admin 
+        from users
+        ORDER BY nickname");
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     public function SaveUserInfos($userid, $firstname, $lastname, $nickname, $email)
     {
         $statement = $this->getConnection()->prepare(

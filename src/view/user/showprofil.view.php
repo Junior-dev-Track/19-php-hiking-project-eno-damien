@@ -55,7 +55,6 @@ ob_start(); ?>
             Edit Your Profile
           </button>
     </form>
-
     <form action="<?php echo htmlspecialchars(BASE_PATH); ?>/user/deleteprofil/<?php echo htmlspecialchars($user_infos[0]['id']); ?>" method="post" class="ml-5 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onsubmit="return confirm('Are you sure you want to delete your profile?');">
       <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete Your Profile</button>
     </form>
@@ -63,7 +62,25 @@ ob_start(); ?>
 </div>
 <?php } ?>
 </div>
-
+<div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-xl mx-auto">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 max-w-xl">
+  <p class="block text-green-400 text-2xl font-bold mb-2 text-center">Other User(s) List :</p>
+      <?php
+        foreach($all_Userinfos as $allUserinfo){ 
+          if($user_admin == "1" && $user_id != $allUserinfo["id"] ) { ?>
+          <div class="flex justify-between items-center mb-4 border-b border-gray-200 pb-4">
+                        <p class="block text-gray-700 text-2xl font-bold mb-2"><?php echo $allUserinfo['nickname']; ?></p>
+                        <div class="flex">
+                            <a href='<?php echo htmlspecialchars(BASE_PATH); ?>/user/showprofil/<?php echo htmlspecialchars($allUserinfo['id']); ?>' class="mx-2">
+                                <img src='<?php echo htmlspecialchars(BASE_PATH); ?>/public/images/loupe.svg' alt='loupeicon' style="width: 24px; height: 24px;" />
+                            </a>
+                        </div>
+                    </div>
+       <?php }
+      }
+      ?>
+</div>
+</div>
 <?php
 $contentBody = ob_get_clean();
 $contentHeader = "";

@@ -6,12 +6,12 @@ require_once('src/lib/database.php');
 require_once('src/model/user.php');
 require_once('src/model/hickescomments.php');
 
-
 use Application\Model\User as UserModel;
 use Application\Model\Login as UserLogin;
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
+// use PHPMailer\PHPMailer\SMTP;
+// use PHPMailer\PHPMailer\PHPMailer;
+// use PHPMailer\PHPMailer\Exception;
+
 
 use PDO;
 
@@ -86,10 +86,9 @@ class User
                             'sess_user' => $nickname
                         ];
                        
-                    
-
-                        // Send email after successful registration
-                        // $phpmailer = new PHPMailer();
+                        //Send email after successful registration
+                        // $phpmailer = new PHPMailer(true);
+                        // $phpmailer->SMTPDebug = 2;
                         // $phpmailer->isSMTP();
                         // $phpmailer->Host = 'smtp.enkelan.tech';
                         // $phpmailer->SMTPAuth = true;
@@ -119,6 +118,8 @@ class User
         $user_infos = $newData->getUserInfos($userid);
         $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : null;
         $user_admin = $newData->getUserAdminStatus($user_id);
+
+        $all_Userinfos = $newData->getAllUserInfos();
         require(__DIR__ . '/../../view/user/showprofil.view.php');
     }
 

@@ -10,15 +10,15 @@
         </p>
         <p class="mb-4">
             <label class="block text-gray-700 text-base font-bold mb-2" for="distance">Distance:</label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="distance" id="distance" value="<?php echo htmlspecialchars($hikes[0]['distance'] ?? ''); ?>">
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="number" name="distance" id="distance" step='0.5' value="<?php echo htmlspecialchars($hikes[0]['distance'] ?? ''); ?>">
         </p>
         <p class="mb-4">
             <label class="block text-gray-700 text-base font-bold mb-2" for="duration">Duration:</label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="duration" id="duration" value="<?php echo htmlspecialchars($hikes[0]['duration'] ?? ''); ?>">
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="time" name="duration" id="duration" value="<?php echo htmlspecialchars($hikes[0]['duration'] ?? ''); ?>">
         </p>
         <p class="mb-4">
             <label class="block text-gray-700 text-base font-bold mb-2" for="elevation_gain">Elevation gain:</label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="elevation_gain" id="elevation_gain" value="<?php echo htmlspecialchars($hikes[0]['elevation_gain'] ?? ''); ?>">
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="number" step='200' name="elevation_gain" id="elevation_gain" value="<?php echo htmlspecialchars($hikes[0]['elevation_gain'] ?? ''); ?>">
         </p>
         <p class="mb-4">
             <label class="block text-gray-700 text-base font-bold mb-2" for="description">Description:</label>

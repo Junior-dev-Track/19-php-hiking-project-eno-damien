@@ -43,6 +43,7 @@ $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : 
                             <strong>Duration:</strong> <?= htmlspecialchars($hike["duration"]); ?> Hours<br>
                             <strong>Elevation gain:</strong> <?= htmlspecialchars($hike["elevation_gain"]); ?> M<br>
                             <strong>Description:</strong> <?= htmlspecialchars($hike["description"]); ?><br>
+                            <strong>Category:</strong> <?= htmlspecialchars($hike["tagname"]); ?><br>
                             <strong>Updated at :</strong> <?= htmlspecialchars($hike["updated_at"]); ?>
                         </p>
                     </div>
