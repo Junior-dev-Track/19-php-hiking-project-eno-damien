@@ -8,25 +8,20 @@ use Application\Lib\Database\DatabaseConnection;
 //avoid error using native class PDO
 use PDO;
 
-class Login
+class Login extends DatabaseConnection
 {
     private string $username;
     private string $password_crypt;
     private DatabaseConnection $connection;
 
-    public function __construct(DatabaseConnection $connection)
+    public function __construct(array $env)
     {
-        $this->connection = $connection;
-    }
-
-    public function getConnection(): \PDO
-    {
-        return $this->connection->getConnection();
+        parent::__construct($env);
     }
     
     public function existEmail($email)
     {
-    $statement = $this->connection->getConnection()->prepare("SELECT id, nickname, email, password, user_admin FROM users WHERE email = :email");
+    $statement = $this->getConnection()->prepare("SELECT id, nickname, email, password, user_admin FROM users WHERE email = :email");
     $statement->bindParam(':email', $email, PDO::PARAM_STR);
     $statement->execute();
     $result = $statement->fetch(PDO::FETCH_ASSOC);

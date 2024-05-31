@@ -8,18 +8,16 @@ use Application\Lib\Database\DatabaseConnection;
 //avoid error using native class PDO
 use PDO;
 
-class HikesComments
+class HikesComments Extends DatabaseConnection
 {
-    private DatabaseConnection $connection;
-
-    public function __construct(DatabaseConnection $connection)
+    public function __construct(array $env)
     {
-        $this->connection = $connection;
+        parent::__construct($env);
     }
 
     public function addCommentHicke($hikescomments, $idhike, $iduser, $posted)
     {
-        $statement = $this->connection->getConnection()->prepare(
+        $statement = $this->getConnection()->prepare(
             "INSERT INTO hikescomments (hikes_comments, id_hikes, id_user, posted_at) VALUES (:hikes_comments, :id_hikes , :id_user, :posted_at)"
         );
         $statement->bindParam(':hikes_comments', $hikescomments, PDO::PARAM_STR);
@@ -32,7 +30,7 @@ class HikesComments
 
     public function delCommentHicke($commentid)
     {
-        $statement = $this->connection->getConnection()->prepare(
+        $statement = $this->getConnection()->prepare(
             "DELETE FROM hikescomments WHERE id = :id"
         );
         $statement->bindParam(':id', $commentid, PDO::PARAM_INT);
@@ -42,7 +40,7 @@ class HikesComments
 
     public function getCommentHicke($identifier)
     {
-        $statement = $this->connection->getConnection()->prepare(
+        $statement = $this->getConnection()->prepare(
             "SELECT * FROM hikescomments WHERE id = :id"
         );
         $statement->bindParam(':id', $identifier, PDO::PARAM_INT);
@@ -53,7 +51,7 @@ class HikesComments
 
     public function editCommentHicke($identifier, $message)
     {
-        $statement = $this->connection->getConnection()->prepare(
+        $statement = $this->getConnection()->prepare(
             "UPDATE hikescomments SET hikes_comments = :hikes_comments WHERE id = :id"
         );
         $statement->bindParam(':hikes_comments', $message, PDO::PARAM_STR);
@@ -65,7 +63,7 @@ class HikesComments
     //delete all comments when a user delete his profil
     public function delAllCommentHicke($userid)
     {
-        $statement = $this->connection->getConnection()->prepare(
+        $statement = $this->getConnection()->prepare(
             "DELETE FROM hikescomments WHERE id_user = :id_user"
         );
         $statement->bindParam(':id_user', $userid, PDO::PARAM_INT);

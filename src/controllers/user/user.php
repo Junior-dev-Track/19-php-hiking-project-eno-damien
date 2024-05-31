@@ -6,7 +6,7 @@ require_once('src/lib/database.php');
 require_once('src/model/user.php');
 require_once('src/model/hickescomments.php');
 
-use Application\Lib\Database\DatabaseConnection;
+
 use Application\Model\User as UserModel;
 use Application\Model\Login as UserLogin;
 use PHPMailer\PHPMailer\PHPMailer;
@@ -25,8 +25,7 @@ class User
                 $password = htmlspecialchars($_POST['password']);
                 $password_crypt = password_hash($password, PASSWORD_DEFAULT);
 
-                $databaseConnection = new DatabaseConnection($env);
-                $newData = new UserLogin($databaseConnection);
+                $newData = new UserLogin($env);
 
                 $result = $newData->existEmail($email);
                 if ($result && password_verify($password, $result['password'])) {
@@ -61,8 +60,7 @@ class User
             $password = htmlspecialchars($_POST['password']);
             $password_crypt = password_hash($password, PASSWORD_DEFAULT);
 
-            $databaseConnection = new DatabaseConnection($env);
-            $newData = new UserModel($databaseConnection);
+            $newData = new UserModel($env);
 
             if (!$newData->isValidEmail($email)) {
                 $error = "The entered email address is not valid.";
@@ -116,18 +114,17 @@ class User
 
     public function ShowProfil($userid, $env, $action)
     {
-        $databaseConnection = new DatabaseConnection($env);
-        $newData = new UserModel($databaseConnection);
+        $newData = new UserModel($env);
 
         $user_infos = $newData->getUserInfos($userid);
-
+        $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : null;
+        $user_admin = $newData->getUserAdminStatus($user_id);
         require(__DIR__ . '/../../view/user/showprofil.view.php');
     }
 
     public function SaveProfil($userid, $input, $env, $action)
     {
-        $databaseConnection = new DatabaseConnection($env);
-        $newData = new UserModel($databaseConnection);
+        $newData = new UserModel($env);
 
         if ($action == 'deleteprofil') {
             $newData->DeleteUser($userid);
@@ -142,6 +139,8 @@ class User
         $nickname = htmlspecialchars($input['nickname']);
         $email = filter_var($input['email'], FILTER_SANITIZE_EMAIL);
 
+        $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : null;
+        $user_admin = $newData->getUserAdminStatus($user_id);
         $newData->SaveUserInfos($userid, $firstname, $lastname, $nickname, $email);
 
         if ($action == 'saveprofil') {

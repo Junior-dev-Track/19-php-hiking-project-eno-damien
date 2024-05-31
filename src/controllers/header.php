@@ -5,7 +5,6 @@ namespace Application\Controllers;
 require_once('src/lib/database.php');
 require_once('src/model/tags.php');
 
-use Application\Lib\Database\DatabaseConnection;
 use Application\Model\Tags as TagsModel;
 // Set session cookie attributes for security
 session_set_cookie_params([
@@ -27,13 +26,11 @@ class Header
 
     public function execute($env)
     {
-        $databaseConnection = new DatabaseConnection($env);
         //we set the databaseConnection for the __construct method
-        $tags = new TagsModel($databaseConnection);
+        $tags = new TagsModel($env);
 
         $tagList = $tags->getTags();
 
-        //$productComments = $HickesDetails->getProductComments($codeProduct);
         require(__DIR__ . '/../view/header.view.php');
     }
 }

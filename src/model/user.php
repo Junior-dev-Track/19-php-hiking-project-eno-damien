@@ -8,7 +8,7 @@ use Application\Lib\Database\DatabaseConnection;
 //avoid error using native class PDO
 use PDO;
 
-class User
+class User extends DatabaseConnection
 {
     private string $firstname;
     private string $lastname;
@@ -16,16 +16,10 @@ class User
     private string $email;
     private string $password_crypt;
     private int $user_admin;
-    private DatabaseConnection $connection;
 
-    public function __construct(DatabaseConnection $connection)
+    public function __construct(array $env)
     {
-        $this->connection = $connection;
-    }
-
-    public function getConnection(): \PDO
-    {
-        return $this->connection->getConnection();
+        parent::__construct($env);
     }
 
     public function isValidEmail($email)
@@ -36,7 +30,7 @@ class User
     //check if email is already ind db
     public function checkDuplicateMail($email)
     {
-        $statement = $this->connection->getConnection()->prepare("SELECT COUNT(*) from users WHERE email = :email");
+        $statement = $this->getConnection()->prepare("SELECT COUNT(*) from users WHERE email = :email");
         $statement->bindParam(':email', $email, PDO::PARAM_STR);
         $statement->execute();
         $result = $statement->fetchColumn();
@@ -46,7 +40,7 @@ class User
     //check if nickname is already ind db
     public function checkDuplicateUser($nickname)
     {
-        $statement = $this->connection->getConnection()->prepare("SELECT COUNT(*) from users WHERE nickname = :nickname");
+        $statement = $this->getConnection()->prepare("SELECT COUNT(*) from users WHERE nickname = :nickname");
         $statement->bindParam(':nickname', $nickname, PDO::PARAM_STR);
         $statement->execute();
         $result = $statement->fetchColumn();
@@ -55,7 +49,7 @@ class User
 
     public function firstUser()
     {
-        $statement = $this->connection->getConnection()->prepare("SELECT COUNT(*) from users");
+        $statement = $this->getConnection()->prepare("SELECT COUNT(*) from users");
         $statement->execute();
         $result = $statement->fetchColumn();
         return $result;
@@ -64,7 +58,7 @@ class User
 
     public function addUser($nickname, $email, $password_crypt, $user_admin)
     {
-        $statement = $this->connection->getConnection()->prepare(
+        $statement = $this->getConnection()->prepare(
             "INSERT INTO users (nickname, email, password, user_admin) VALUES (:nickname, :email, :password_crypt, :user_admin)"
         );
         $statement->bindParam(':nickname', $nickname, PDO::PARAM_STR);
@@ -74,14 +68,14 @@ class User
         $statement->execute();
        
         // Retrieve the last inserted ID
-        $lastInsertId = $this->connection->lastInsertId();
+        $lastInsertId = $this->lastInsertId();
         return $lastInsertId; // Return the last inserted ID
     }
     
 
     public function getUserInfos($userid)
     {
-        $statement = $this->connection->getConnection()->prepare("SELECT id, firstname, lastname, nickname, email, user_admin from users WHERE id = :userid");
+        $statement = $this->getConnection()->prepare("SELECT id, firstname, lastname, nickname, email, user_admin from users WHERE id = :userid");
         $statement->bindParam(':userid', $userid, PDO::PARAM_INT);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -90,7 +84,7 @@ class User
 
     public function SaveUserInfos($userid, $firstname, $lastname, $nickname, $email)
     {
-        $statement = $this->connection->getConnection()->prepare(
+        $statement = $this->getConnection()->prepare(
             "UPDATE users SET firstname = :firstname, lastname = :lastname, nickname = :nickname, email = :email WHERE id = :userid"
         );
         $statement->bindParam(':userid', $userid, PDO::PARAM_INT);
@@ -104,7 +98,7 @@ class User
 
     public function DeleteUser($userid)
     {
-        $statement = $this->connection->getConnection()->prepare("DELETE from users WHERE id = :userid");
+        $statement = $this->getConnection()->prepare("DELETE from users WHERE id = :userid");
         $statement->bindParam(':userid', $userid, PDO::PARAM_INT);
         $result = $statement->execute();
         return $result;
@@ -112,7 +106,7 @@ class User
 
     public function getUserAdminStatus($user_id)
     {
-        $statement = $this->connection->getConnection()->prepare("SELECT user_admin FROM users WHERE id = :user_id");
+        $statement = $this->getConnection()->prepare("SELECT user_admin FROM users WHERE id = :user_id");
         $statement->bindParam(':user_id', $user_id, PDO::PARAM_INT);
         $statement->execute();
         $result = $statement->fetchColumn();

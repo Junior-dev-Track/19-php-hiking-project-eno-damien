@@ -8,38 +8,20 @@ use Application\Lib\Database\DatabaseConnection;
 //avoid error using native class PDO
 use PDO;
 
-class Hickeslist
+class Hickeslist extends DatabaseConnection
 {
-    private int $id;
-    private string $name;
-    private float $distance;
-    private string $duration;
-    private int $elevation_gain;
-    private string $description;
-    private int $created_by;
-    private string $created_at;
-    private string $updated_at;
-
-    private DatabaseConnection $connection;
-
-    public function __construct(DatabaseConnection $connection)
+    public function __construct(array $env)
     {
-        $this->connection = $connection;
-    }
-
-    public function getConnection(): \PDO
-    {
-        return $this->connection->getConnection();
+        parent::__construct($env);
     }
 
     public function getListOfHickes()
     {
-        $statement = $this->connection->getConnection()->prepare(
+        $statement = $this->getConnection()->prepare(
             "SELECT h.id, h.name, h.distance, h.duration, t.category
             FROM Hikes h
             INNER JOIN tags t
-            ON h.id_tags = t.ID
-            "
+            ON h.id_tags = t.ID"
         );
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -48,7 +30,7 @@ class Hickeslist
 
     public function getHikesDetails($hikesId)
     {
-        $statement = $this->connection->getConnection()->prepare(
+        $statement = $this->getConnection()->prepare(
             "SELECT h.id, h.name, h.distance, h.duration, h.elevation_gain, h.description, h.created_by, h.created_at, h.updated_at, u.nickname, u.user_admin
             FROM Hikes h
             INNER JOIN users u
@@ -63,7 +45,7 @@ class Hickeslist
 
     public function getHikesComments($hickesid)
     {
-        $commentdb = $this->connection->getConnection()->prepare(
+        $commentdb = $this->getConnection()->prepare(
             "SELECT hc.id, hc.hikes_comments, hc.id_user, hc.posted_at, u.nickname, u.user_admin
             FROM hikescomments hc
             INNER JOIN users u
@@ -80,7 +62,7 @@ class Hickeslist
 
     public function getHikesListUser()
     {
-        $statement = $this->connection->getConnection()->prepare(
+        $statement = $this->getConnection()->prepare(
             "SELECT id, name, distance, duration, created_by FROM Hikes"
         );
         $statement->execute();
@@ -90,7 +72,7 @@ class Hickeslist
 
     public function EditHikes($hickeid)
     {
-        $statement = $this->connection->getConnection()->prepare(
+        $statement = $this->getConnection()->prepare(
             "SELECt id, name, distance, duration, elevation_gain, description, created_by, updated_at, id_tags FROM Hikes WHERE id = :id"
         );
         $statement->bindParam(':id', $hickeid, PDO::PARAM_INT);
@@ -101,7 +83,7 @@ class Hickeslist
 
     public function SaveHikes($hikeid, $name, $distance, $duration, $elevation_gain, $description, $updated_at, $id_tag)
     {
-        $statement = $this->connection->getConnection()->prepare(
+        $statement = $this->getConnection()->prepare(
             "UPDATE Hikes SET 
         name = :name,
         distance = :distance,
@@ -130,7 +112,7 @@ class Hickeslist
 
     public function SaveAddHikes($name, $distance, $duration, $elevation_gain, $description, $created_by, $created_at, $updated_at,  $id_tag)
     {
-        $statement = $this->connection->getConnection()->prepare(
+        $statement = $this->getConnection()->prepare(
             "INSERT INTO Hikes (name, distance, duration, elevation_gain, description, created_by, created_at, updated_at, id_tags) VALUES (:name, :distance, :duration, :elevation_gain, :description, :created_by, :created_at, :updated_at, :id_tags)"
         );
         $statement->bindParam(':name', $name, PDO::PARAM_STR);
@@ -153,7 +135,7 @@ class Hickeslist
 
     public function GetHikesSelectedTags($tagsid)
     {
-        $statement = $this->connection->getConnection()->prepare(
+        $statement = $this->getConnection()->prepare(
             "SELECT h.id, h.name, h.distance, h.duration, t.category
             FROM Hikes h
             INNER JOIN tags t
@@ -168,7 +150,7 @@ class Hickeslist
 
     public function deleteHike($hikesId)
     {
-        $statement = $this->connection->getConnection()->prepare(
+        $statement = $this->getConnection()->prepare(
             "DELETE FROM Hikes WHERE id = :id"
         );
         $statement->bindParam(':id', $hikesId, PDO::PARAM_INT);

@@ -4,7 +4,6 @@ namespace Application\Controllers\Hikes;
 
 require_once('src/model/hickescomments.php');
 
-use Application\Lib\Database\DatabaseConnection;
 use Application\Model\HikesComments as HikesCommentsModel;
 
 class HikesComments
@@ -12,8 +11,7 @@ class HikesComments
 
     public function AddComment($input, $hikeid, $userid, $env)
     {
-        $databaseConnection = new DatabaseConnection($env);
-        $newData = new HikesCommentsModel($databaseConnection);
+        $newData = new HikesCommentsModel($env);
 
         if (empty($input['hikesComment'])) {
             $error_com = 'Error. Please retry.';
@@ -36,8 +34,7 @@ class HikesComments
 
     public function DeleteComment($hikeid, $commentid, $env)
     {
-        $databaseConnection = new DatabaseConnection($env);
-        $newData = new HikesCommentsModel($databaseConnection);
+        $newData = new HikesCommentsModel($env);
 
         //Check if comment exists and if the user is the author of the comment, if not, redirect to Page not found
         $comment = $newData->getCommentHicke($commentid);
@@ -54,8 +51,7 @@ class HikesComments
 
     public function EditComment($hikeid, $commentid, $input, $action, $env)
     {
-        $databaseConnection = new DatabaseConnection($env);
-        $newData = new HikesCommentsModel($databaseConnection);
+        $newData = new HikesCommentsModel($env);
 
         if ($action === 'editCommentHicke') {
             $hikesComments = $newData->getCommentHicke($commentid);

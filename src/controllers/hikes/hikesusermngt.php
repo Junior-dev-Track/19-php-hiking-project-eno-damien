@@ -6,7 +6,6 @@ require_once('src/model/hickeslist.php');
 require_once('src/model/tags.php');
 require_once('src/model/user.php');
 
-use Application\Lib\Database\DatabaseConnection;
 use Application\Model\Hickeslist\Hickeslist;
 use Application\Model\Tags as TagsModel;
 use Application\Model\User as UserModel;
@@ -16,13 +15,11 @@ class Hikesusermngt
 {
     public function ListHikesUser($userid, $env)
     {
-        $databaseConnection = new DatabaseConnection($env);
-       
-        $newData = new Hickeslist($databaseConnection);
+        $newData = new Hickeslist($env);
         $hikes = $newData->getHikesListUser();
 
         //we check if the user connected is an admin, if yes, he will be able to edit and delete comments (see hikesdetails.view.php) condition || ($user_admin == "1")
-        $newData = new UserModel($databaseConnection);
+        $newData = new UserModel($env);
         $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : null;
         $user_admin = $newData->getUserAdminStatus($user_id);
         
@@ -31,9 +28,8 @@ class Hikesusermngt
 
     public function EditHikesUser($hikeid, $env, $action)
     {
-        $databaseConnection = new DatabaseConnection($env);
-        $newData = new Hickeslist($databaseConnection);
-        $tags = new TagsModel($databaseConnection);
+        $newData = new Hickeslist($env);
+        $tags = new TagsModel($env);
         
         $tagList = $tags->getTags();
         $hikes = $newData->EditHikes($hikeid);
@@ -46,8 +42,7 @@ class Hikesusermngt
 
     public function SaveHikesUser($hikeid, $env, $input, $userid, $action)
     {
-        $databaseConnection = new DatabaseConnection($env);
-        $newData = new Hickeslist($databaseConnection);
+        $newData = new Hickeslist($env);
         
         $name = htmlspecialchars($input['name']);
         $distance = htmlspecialchars($input['distance']);
@@ -73,9 +68,8 @@ class Hikesusermngt
 
     public function AddHikesUser($userid, $env)
     {
-        $databaseConnection = new DatabaseConnection($env);
         //we set the databaseConnection for the __construct method
-        $tags = new TagsModel($databaseConnection);
+        $tags = new TagsModel($env);
 
         $tagList = $tags->getTags();
         require(__DIR__ . '/../../view/hikes/hikesusermngtadd.view.php');
