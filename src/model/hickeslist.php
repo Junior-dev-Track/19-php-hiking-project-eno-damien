@@ -31,7 +31,7 @@ class Hickeslist extends DatabaseConnection
     public function getHikesDetails($hikesId)
     {
         $statement = $this->getConnection()->prepare(
-            "SELECT h.id, h.name, h.distance, h.duration, h.elevation_gain, h.description, h.created_by, h.created_at, h.updated_at, u.nickname, u.user_admin, t.name as tagname
+            "SELECT h.id, h.name, h.distance, h.duration, h.elevation_gain, h.description, h.created_by, h.created_at, h.updated_at, u.nickname, u.user_admin, t.name as tagname, t.category
             FROM Hikes h
             INNER JOIN users u
             ON h.created_by = u.id

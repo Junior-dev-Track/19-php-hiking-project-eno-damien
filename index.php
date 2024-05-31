@@ -38,8 +38,6 @@ error_reporting(E_ALL);
 define('BASE_PATH', '/19-php-hiking-project-eno-damien');
 
 require_once __DIR__ . '/vendor/autoload.php';
-require_once('src/controllers/Header.php');
-
 
 $envFilePath = '.env';
 $env = parse_ini_file($envFilePath);
