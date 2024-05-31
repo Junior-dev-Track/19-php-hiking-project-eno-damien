@@ -92,16 +92,17 @@ class User extends DatabaseConnection
         return $result;
     }
 
-    public function SaveUserInfos($userid, $firstname, $lastname, $nickname, $email)
+    public function SaveUserInfos($userid, $firstname, $lastname, $nickname, $email, $radio_UserAdmin)
     {
         $statement = $this->getConnection()->prepare(
-            "UPDATE users SET firstname = :firstname, lastname = :lastname, nickname = :nickname, email = :email WHERE id = :userid"
+            "UPDATE users SET firstname = :firstname, lastname = :lastname, nickname = :nickname, email = :email, user_admin = :user_admin WHERE id = :userid"
         );
         $statement->bindParam(':userid', $userid, PDO::PARAM_INT);
         $statement->bindParam(':firstname', $firstname, PDO::PARAM_STR);
         $statement->bindParam(':lastname', $lastname, PDO::PARAM_STR);
         $statement->bindParam(':nickname', $nickname, PDO::PARAM_STR);
         $statement->bindParam(':email', $email, PDO::PARAM_STR);
+        $statement->bindParam(':user_admin', $radio_UserAdmin, PDO::PARAM_INT);
         $result = $statement->execute();
         return $result;
     }

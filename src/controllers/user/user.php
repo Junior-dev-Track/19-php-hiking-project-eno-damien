@@ -80,12 +80,12 @@ class User
                         $user_admin = ($userCount == 0) ? 1 : 0;
                         $id = $newData->addUser($nickname, $email, $password_crypt, $user_admin);
                         //Autologin after subscription
-                        
+
                         $_SESSION['user'] = [
                             'sess_id' => $id,
                             'sess_user' => $nickname
                         ];
-                       
+
                         //Send email after successful registration
                         // $phpmailer = new PHPMailer(true);
                         // $phpmailer->SMTPDebug = 2;
@@ -129,27 +129,28 @@ class User
 
         if ($action == 'deleteprofil') {
             $newData->DeleteUser($userid);
-            
+
             session_destroy();
             echo "<script>window.location.href='" . BASE_PATH . "'</script>";
             exit();
         }
-
+       
         $firstname = htmlspecialchars($input['firstname']);
         $lastname = htmlspecialchars($input['lastname']);
         $nickname = htmlspecialchars($input['nickname']);
         $email = filter_var($input['email'], FILTER_SANITIZE_EMAIL);
+        $radio_UserAdmin = htmlspecialchars($input['user_admin']);
 
         $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : null;
         $user_admin = $newData->getUserAdminStatus($user_id);
-        $newData->SaveUserInfos($userid, $firstname, $lastname, $nickname, $email);
+        $newData->SaveUserInfos($userid, $firstname, $lastname, $nickname, $email, $radio_UserAdmin);
 
         if ($action == 'saveprofil') {
             $user_infos = $newData->getUserInfos($userid);
             $successMessage = "Profile edited successfully.";
         }
 
-       
+
         require(__DIR__ . '/../../view/user/showprofil.view.php');
     }
 }
