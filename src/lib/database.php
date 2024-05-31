@@ -8,7 +8,7 @@ abstract class DatabaseConnection
 {
     protected $database;
 
-    public function __construct(array $env)
+    protected function __construct(array $env)
     {
         try {
             if (isset($env['host_name'], $env['host_user'], $env['host_pwd'], $env['host_dbname'])) {

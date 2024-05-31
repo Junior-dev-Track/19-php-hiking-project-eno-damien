@@ -15,11 +15,19 @@ $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : 
         width: 100px;
         height: 100px;
         transform: translateY(5px);
-        pointer-events: none; /* This ensures that the pseudo-element does not block any interactions with other elements */
+        pointer-events: none;
+        /* This ensures that the pseudo-element does not block any interactions with other elements */
     }
 </style>
 <div class="min-h-screen bg-gray-900 flex flex-col  relative px-4">
-    
+    <?php
+    // Get the category of the hike.
+    $category = $hike["category"];
+    // Generate a random number between 1 and 4.
+    $randomNumber = rand(1, 4);
+    // Construct the path to the random image.
+    $imagePath = BASE_PATH . "/public/images/{$category}/{$randomNumber}.jpg";
+    ?>
     <div class="absolute top-0 left-0 w-full h-full bg-cover bg-center" style="background-image: url('<?php echo BASE_PATH; ?>/public/images/background1.jpg');">
     </div>
 
@@ -48,7 +56,7 @@ $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : 
                         </p>
                     </div>
                     <div class="absolute bottom-0 right-0 w-full h-full">
-                     </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -67,7 +75,7 @@ $user_id = isset($_SESSION['user']['sess_id']) ? $_SESSION['user']['sess_id'] : 
                                     <?php // The user can delete his own comments
                                     //If the user own the comment or if he is an admin, he can edit
                                     //if (($user_id) == $hcomment['id_user'] || $user_admin == "1") { 
-                                        if (($user_id == $hcomment['id_user']) || ($user_admin == "1")) { ?>
+                                    if (($user_id == $hcomment['id_user']) || ($user_admin == "1")) { ?>
                                         <div class="mt-2 flex justify-end">
                                             <!-- Keep the code and id to be able to return to the page product after action -->
                                             <a href='<?php echo htmlspecialchars(BASE_PATH); ?>/hikes/editcom/<?= $hike['id']; ?>/<?= $hcomment['id'] ?>' class="mx-2">
