@@ -6,6 +6,7 @@ require_once('src/lib/database.php');
 require_once('src/model/user.php');
 require_once('src/model/hickescomments.php');
 
+
 use Application\Model\User as UserModel;
 use Application\Model\Login as UserLogin;
 use PHPMailer\PHPMailer\SMTP;
@@ -92,8 +93,8 @@ class User
                         $phpmailer->Host = 'smtp-pulse.com'; // Replace with your SMTP server
                         $phpmailer->SMTPAuth = true;
                         $phpmailer->Port = 587; // Replace with your port
-                        $phpmailer->Username = 'dyvinitygamer@gmail.com'; // Replace with your login
-                        $phpmailer->Password = 'WB33ZMJirk6'; // Replace with your password
+                        $phpmailer->Username = $env['mailer_user']; // Replace with your login
+                        $phpmailer->Password = $env['mailer_pwd']; // Replace with your password
                         $phpmailer->setFrom('eno@enkelan.tech', 'Eno&Damien Domain'); // Replace with your email and name
                         $phpmailer->addAddress($email, $nickname);     // Add a recipient
                         $phpmailer->isHTML(true);                      // Set email format to HTML
